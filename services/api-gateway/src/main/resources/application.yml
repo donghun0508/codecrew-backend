@@ -9,8 +9,6 @@ management:
     port: ${MANAGEMENT_PORT:20011}
 
 spring:
-  profiles:
-    active: local
   application:
     name: codecrew-apigateway
   config:
