@@ -1,0 +1,13 @@
+server:
+  ssl:
+    enabled: false
+  http2:
+    enabled: false
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.cloud.gateway: TRACE
+#    org.springframework.web.reactive: TRACE
+#    reactor.netty: TRACE
+#    org.springframework.http.server.reactive: TRACE

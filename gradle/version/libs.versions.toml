@@ -1,0 +1,88 @@
+[versions]
+java = "25"
+springBoot = "4.0.0"
+springDependencyManagement = "1.1.7"
+springCloudDependenciesVersion= "2025.1.0"
+springFramework = "7.0.2"
+errorpronePlugin = "4.1.0"
+lombok = "1.18.42"
+errorprone = "2.26.1"
+nullaway = "0.11.3"
+testcontainers = "1.19.7"
+jakarta-persistence = "3.2.0"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+errorprone = { id = "net.ltgt.errorprone", version.ref = "errorpronePlugin" }
+
+[libraries]
+spring-framework-web = { module = "org.springframework:spring-web" }
+
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
+spring-boot-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+
+flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
+mysql-connector = { module = "com.mysql:mysql-connector-j" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
+nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
+
+testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+
+micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+micrometer-tracing = { module = "io.micrometer:micrometer-tracing" }
+micrometer-tracing-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
+otel-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+
+spring-framework-bom = { module = "org.springframework:spring-framework-bom", version.ref = "springFramework" }
+spring-cloud-bom = { group = "org.springframework.cloud", name = "spring-cloud-dependencies", version.ref = "springCloudDependenciesVersion" }
+spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "springBoot" }
+spring-dependency-management-gradle-plugin = { module = "io.spring.gradle:dependency-management-plugin", version.ref = "springDependencyManagement" }
+errorprone-gradle-plugin = { module = "net.ltgt.gradle:gradle-errorprone-plugin", version.ref = "errorpronePlugin" }
+
+[bundles]
+spring-framework-web = [
+    "spring-framework-web"
+]
+
+spring-boot-web = [
+    "spring-boot-starter-web",
+    "spring-boot-starter-validation"
+]
+
+spring-boot-jpa = [
+    "spring-boot-starter-data-jpa"
+]
+
+spring-boot-logging = [
+    "spring-boot-starter-logging"
+]
+
+spring-boot-monitoring = [
+    "spring-boot-starter-actuator",
+    "micrometer-prometheus",
+    "micrometer-tracing",
+    "micrometer-tracing-otel",
+    "otel-exporter-otlp"
+]
+
+spring-test = [
+    "spring-boot-starter-test",
+    "testcontainers-junit"
+]
+
+mysql-datasource = [
+    "mysql-connector",
+    "spring-boot-starter-flyway",
+    "flyway-mysql",
+]
+

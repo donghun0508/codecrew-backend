@@ -1,0 +1,29 @@
+server:
+  port: ${SERVER_PORT:8443}
+  compression:
+    enabled: true
+  shutdown: graceful
+
+management:
+  server:
+    port: ${MANAGEMENT_PORT:20011}
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: codecrew-apigateway
+  config:
+    import:
+      - logging.yml
+      - monitoring.yml
+      - classpath:application-cors.yml
+      - classpath:application-filter.yml
+      - classpath:application-route.yml
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false

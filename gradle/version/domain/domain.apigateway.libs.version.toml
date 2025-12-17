@@ -1,0 +1,15 @@
+[versions]
+
+[libraries]
+netty-resolver-dns = { group = "io.netty", name = "netty-resolver-dns" }
+netty-resolver-dns-native-macos = { group = "io.netty", name = "netty-resolver-dns-native-macos" }
+netty-all = { group = "io.netty", name = "netty-all" }
+
+spring-cloud-gateway-webflux = { group = "org.springframework.cloud", name = "spring-cloud-starter-gateway-server-webflux" }
+
+[bundles]
+netty = [
+    "netty-resolver-dns",
+    "netty-resolver-dns-native-macos",
+    "netty-all"
+]
