@@ -15,7 +15,7 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
     }
 
     public static class Config {
-        // 현재 설정값 필요 없음 → 필요하면 나중에 추가 가능
+
     }
 
     @Override
