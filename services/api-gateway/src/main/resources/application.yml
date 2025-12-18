@@ -10,7 +10,7 @@ management:
 
 spring:
   application:
-    name: codecrew-apigateway
+    name: codecrew-api-gateway
   config:
     import:
       - logging.yml
