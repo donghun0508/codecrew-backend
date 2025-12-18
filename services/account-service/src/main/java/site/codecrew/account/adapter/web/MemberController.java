@@ -24,6 +24,11 @@ public class MemberController {
 
     private final MemberUseCase memberUseCase;
 
+    @GetMapping
+    public String hello() {
+        return "Hello from Member Service!";
+    }
+
     @GetMapping("/me")
     public ApiResponse<MemberResponse> verifyMember(@RequestHeader("Authorization") String accessToken) {
         return ApiResponse.success(
