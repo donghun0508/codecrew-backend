@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: codecrew-account-service
+    name: account-service
   config:
     import:
       - logging.yml
