@@ -1,10 +1,10 @@
-name: ci-api-gateway-workflow
+name: ci-account-service-workflow
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - services/api-gateway/**
+      - services/account-service/**
       - build.gradle.kts
       - settings.gradle.kts
       - build-logic/**
@@ -32,7 +32,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
-          ./gradlew :services:api-gateway:bootJar -x test
+          ./gradlew :services:account-service:bootJar -x test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -48,11 +48,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: services/api-gateway/Dockerfile
+          file: services/account-service/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/api-gateway:latest
-            ghcr.io/${{ github.repository_owner }}/api-gateway:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/account-service:latest
+            ghcr.io/${{ github.repository_owner }}/account-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -71,14 +71,14 @@ jobs:
         run: |
           sed -i \
             "s/^  tag: .*/  tag: ${{ github.sha }}/" \
-            gitops/values/api-gateway.yaml
+            gitops/values/account-service.yaml
 
       - name: Commit and Push GitOps repo
         run: |
           cd gitops
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add values/api-gateway.yaml
-          git commit -m "deploy(api-gateway): ${{ github.sha }}"
+          git add values/account-service.yaml
+          git commit -m "deploy(account-service): ${{ github.sha }}"
           git push
 
