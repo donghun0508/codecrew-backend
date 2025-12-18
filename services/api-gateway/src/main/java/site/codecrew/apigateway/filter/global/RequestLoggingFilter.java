@@ -25,6 +25,7 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
             log.info("[Request] {} {}", req.getMethod(), req.getURI());
 
 
+
             return chain.filter(exchange)
                 .then(Mono.fromRunnable(() -> {
                     var res = exchange.getResponse();
