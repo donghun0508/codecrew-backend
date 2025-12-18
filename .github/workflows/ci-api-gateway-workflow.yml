@@ -9,6 +9,7 @@ on:
       - settings.gradle.kts
       - build-logic/**
       - gradle/**
+      - module/**
 
 permissions:
   contents: read
