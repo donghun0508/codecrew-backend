@@ -3,8 +3,6 @@ server:
   shutdown: graceful
 
 spring:
-  profiles:
-    active: local
   application:
     name: codecrew-account-service
   config:
@@ -20,14 +18,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
 
 management:
   server:
     port: ${MANAGEMENT_PORT:8081}
-
 
 oauth:
   google:

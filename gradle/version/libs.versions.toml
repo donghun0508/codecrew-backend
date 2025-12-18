@@ -81,8 +81,6 @@ spring-test = [
 ]
 
 mysql-datasource = [
-    "mysql-connector",
-    "spring-boot-starter-flyway",
-    "flyway-mysql",
+    "mysql-connector"
 ]
 
