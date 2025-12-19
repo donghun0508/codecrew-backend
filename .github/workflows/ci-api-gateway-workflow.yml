@@ -57,7 +57,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-          # ===============================
+      # ===============================
       # GitOps 연동 단계
       # ===============================
 
@@ -72,14 +72,14 @@ jobs:
         run: |
           sed -i \
             "s/^  tag: .*/  tag: ${{ github.sha }}/" \
-            gitops/values/api-gateway.yaml
+            gitops/values/api-gateway/api-gateway.yaml
 
       - name: Commit and Push GitOps repo
         run: |
           cd gitops
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add values/api-gateway.yaml
+          git add values/api-gateway/api-gateway.yaml
           git commit -m "deploy(api-gateway): ${{ github.sha }}"
           git push
 
