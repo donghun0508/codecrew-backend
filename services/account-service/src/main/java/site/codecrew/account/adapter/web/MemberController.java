@@ -26,7 +26,7 @@ public class MemberController {
 
     @GetMapping
     public String hello() {
-        return "Hello from Member Service!";
+        return "Hello from Member Service!!";
     }
 
     @GetMapping("/me")
