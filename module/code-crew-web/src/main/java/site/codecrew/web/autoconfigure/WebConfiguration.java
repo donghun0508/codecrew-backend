@@ -1,6 +1,8 @@
 package site.codecrew.web.autoconfigure;
 
+import java.util.List;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ApiVersionConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -9,6 +11,9 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void configureApiVersioning(ApiVersionConfigurer configurer) {
-        configurer.useRequestHeader("API-Version");
+        configurer.useRequestHeader("X-API-Version");
+        configurer.detectSupportedVersions(true);
+        configurer.addSupportedVersions("1.0");
+        configurer.setDefaultVersion("1.0");
     }
 }
