@@ -1,1 +1,1 @@
-site.codecrew.web.autoconfigure.CoreErrorMappingAutoConfiguration
+site.codecrew.starter.web.autoconfigure.CoreErrorMappingAutoConfiguration

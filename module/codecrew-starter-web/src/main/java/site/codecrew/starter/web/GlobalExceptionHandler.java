@@ -1,4 +1,4 @@
-package site.codecrew.web;
+package site.codecrew.starter.web;
 
 import jakarta.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
@@ -14,7 +14,7 @@ import site.codecrew.core.exception.CoreException;
 import site.codecrew.core.http.ApiResponse;
 import site.codecrew.core.http.ErrorResponse;
 import site.codecrew.core.http.ExceptionResolver;
-import site.codecrew.web.support.ErrorReporter;
+import site.codecrew.starter.web.support.ErrorReporter;
 
 @RequiredArgsConstructor
 @RestControllerAdvice
