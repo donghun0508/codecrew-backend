@@ -1,6 +1,7 @@
 name: ci-api-gateway-workflow
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
     paths:
