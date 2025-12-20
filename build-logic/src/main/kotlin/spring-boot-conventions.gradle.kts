@@ -1,7 +1,3 @@
-import util.springCloudBom
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.getByType
-
 plugins {
     id("java-conventions")
     id("lombok-conventions")
@@ -11,6 +7,11 @@ plugins {
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
+dependencies {
+    api(libs.findLibrary("spring-boot-starter-json").get())
+    api(libs.findLibrary("jackson-datatype-jsr310").get())
+}
+
 dependencyManagement {
     imports {
         mavenBom(
@@ -18,4 +19,8 @@ dependencyManagement {
                     libs.findVersion("springCloudDependenciesVersion").get().requiredVersion
         )
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

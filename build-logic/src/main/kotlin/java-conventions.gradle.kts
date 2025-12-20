@@ -9,6 +9,7 @@ import org.gradle.kotlin.dsl.repositories
 plugins {
     java
     `java-library`
+    `java-test-fixtures`
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

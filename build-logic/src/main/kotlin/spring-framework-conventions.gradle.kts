@@ -7,5 +7,4 @@ plugins {
 
 dependencies {
     api(platform(springFrameworkBom()))
-    implBundle("spring-framework-web")
 }

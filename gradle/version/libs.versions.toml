@@ -2,7 +2,8 @@
 java = "25"
 springBoot = "4.0.0"
 springDependencyManagement = "1.1.7"
-springCloudDependenciesVersion= "2025.1.0"
+springCloudDependenciesVersion = "2025.1.0"
+springdocOpenapiStarterWebmvcUi = "3.0.0"
 springFramework = "7.0.2"
 errorpronePlugin = "4.1.0"
 lombok = "1.18.42"
@@ -10,6 +11,8 @@ errorprone = "2.26.1"
 nullaway = "0.11.3"
 testcontainers = "1.19.7"
 jakarta-persistence = "3.2.0"
+jackson-bom = "3.0-rc5"
+classgraphVersion = "4.8.184"
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
@@ -18,12 +21,19 @@ errorprone = { id = "net.ltgt.errorprone", version.ref = "errorpronePlugin" }
 
 [libraries]
 spring-framework-web = { module = "org.springframework:spring-web" }
+jackson-annotation = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-bom" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+io-github-classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraphVersion" }
 
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
+spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 spring-boot-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapiStarterWebmvcUi"}
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
@@ -37,11 +47,14 @@ errorprone-core = { module = "com.google.errorprone:error_prone_core", version.r
 nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
 
 testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+org-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 
 micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
 micrometer-tracing = { module = "io.micrometer:micrometer-tracing" }
 micrometer-tracing-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
 otel-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+
+netty-resolver-dns-macos = { module = "io.netty:netty-resolver-dns-native-macos" }
 
 spring-framework-bom = { module = "org.springframework:spring-framework-bom", version.ref = "springFramework" }
 spring-cloud-bom = { group = "org.springframework.cloud", name = "spring-cloud-dependencies", version.ref = "springCloudDependenciesVersion" }
@@ -56,11 +69,16 @@ spring-framework-web = [
 
 spring-boot-web = [
     "spring-boot-starter-web",
-    "spring-boot-starter-validation"
+    "spring-boot-starter-validation",
+    "springdoc-openapi-starter-webmvc-ui"
 ]
 
-spring-boot-jpa = [
+spring-boot-data-jpa = [
     "spring-boot-starter-data-jpa"
+]
+
+spring-boot-data-redis = [
+    "spring-boot-starter-data-redis"
 ]
 
 spring-boot-logging = [
@@ -75,12 +93,18 @@ spring-boot-monitoring = [
     "otel-exporter-otlp"
 ]
 
-spring-test = [
+spring-boot-test = [
     "spring-boot-starter-test",
-    "testcontainers-junit"
+    "testcontainers-junit",
+    "org-junit-jupiter"
 ]
 
 mysql-datasource = [
     "mysql-connector"
 ]
 
+jackson = [
+    "jackson-annotation",
+    "jackson-databind",
+    "jackson-datatype-jsr310"
+]

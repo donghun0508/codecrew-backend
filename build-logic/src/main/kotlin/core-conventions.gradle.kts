@@ -9,7 +9,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":module:code-crew-core"))
-    api(project(":module:code-crew-logging"))
-    api(project(":module:code-crew-monitoring"))
+    api(project(":module:codecrew-core"))
+    api(project(":module:codecrew-logging"))
+    api(project(":module:codecrew-monitoring"))
 }
