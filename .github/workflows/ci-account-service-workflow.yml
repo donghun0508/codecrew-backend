@@ -1,7 +1,6 @@
 name: ci-account-service-workflow
 
 on:
-  workflow_dispatch:
   push:
     branches: [ "main" ]
     paths:
