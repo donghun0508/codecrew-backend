@@ -33,7 +33,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
-          ./gradlew :services:api-gateway:bootJar -x test
+          ./gradlew :services:codecrew-api-gateway:bootJar -x test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
