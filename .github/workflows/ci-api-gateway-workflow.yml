@@ -10,6 +10,7 @@ on:
       - build-logic/**
       - gradle/**
       - module/**
+      - .github/workflows/ci-api-gateway-workflow.yml
 
 permissions:
   contents: read
@@ -49,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: services/api-gateway/Dockerfile
+          file: services/codecrew-api-gateway/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/api-gateway:latest

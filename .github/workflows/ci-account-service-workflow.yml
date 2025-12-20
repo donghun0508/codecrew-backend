@@ -10,6 +10,7 @@ on:
       - build-logic/**
       - gradle/**
       - module/**
+      - .github/workflows/ci-account-service-workflow.yml
 
 permissions:
   contents: read
@@ -49,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: services/account-service/Dockerfile
+          file: services/codecrew-account-service/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/account-service:latest
