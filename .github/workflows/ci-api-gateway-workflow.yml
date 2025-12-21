@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - services/api-gateway/**
+      - services/codecrew-api-gateway/**
       - build.gradle.kts
       - settings.gradle.kts
       - build-logic/**
