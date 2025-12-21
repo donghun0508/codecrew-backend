@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStaticMasterReplicaConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -105,6 +106,10 @@ public class RedisConfiguration {
         LettuceClientConfiguration.LettuceClientConfigurationBuilder builder =
             LettuceClientConfiguration.builder();
 
+        if (redisProperties.timeout() != null) {
+            builder.commandTimeout(redisProperties.timeout());
+        }
+
         if (customizer != null) {
             customizer.accept(builder);
         }
@@ -119,6 +124,11 @@ public class RedisConfiguration {
             for (RedisNodeInfo replica : replicas) {
                 masterReplicaConfig.addNode(replica.host(), replica.port());
             }
+        }
+
+        String password = redisProperties.password();
+        if (password != null && !password.isBlank()) {
+            masterReplicaConfig.setPassword(RedisPassword.of(password));
         }
 
         return new LettuceConnectionFactory(masterReplicaConfig, clientConfig);
