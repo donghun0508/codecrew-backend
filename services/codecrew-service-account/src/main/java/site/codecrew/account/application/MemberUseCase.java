@@ -2,8 +2,8 @@ package site.codecrew.account.application;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.codecrew.account.application.token.JsonWebTokenClaims;
 import site.codecrew.account.application.token.JsonWebTokenService;
@@ -12,6 +12,7 @@ import site.codecrew.account.domain.MemberService;
 import site.codecrew.core.exception.CoreErrorCode;
 import site.codecrew.core.exception.CoreException;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class MemberUseCase {
@@ -20,9 +21,14 @@ public class MemberUseCase {
     private final MemberService memberService;
 
     public MemberResult findByToken(PlainToken accessToken) {
+        long startTime = System.currentTimeMillis();
         JsonWebTokenClaims accessTokenClaims = tokenService.parse(accessToken);
-        return MemberResult.from(memberService.findByPublicId(requireNonNull(accessTokenClaims.getClaimAsLong()))
-            .orElseThrow(() -> new CoreException(CoreErrorCode.NOT_FOUND, "Member not found with id: " + accessTokenClaims.subject())));
+        log.info("MemberUseCase.findByToken token={} took {}ms", accessToken, System.currentTimeMillis() - startTime);
+
+        return MemberResult.from(
+            memberService.findByPublicId(requireNonNull(accessTokenClaims.getClaimAsLong()))
+                .orElseThrow(() -> new CoreException(CoreErrorCode.NOT_FOUND,
+                    "Member not found with id: " + accessTokenClaims.subject())));
     }
 
     public MemberDuplicationCheckResult duplicationNameCheck(String nickname) {
