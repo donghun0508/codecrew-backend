@@ -73,14 +73,14 @@ jobs:
         run: |
           sed -i \
             "s/^  tag: .*/  tag: ${{ github.sha }}/" \
-            gitops/values/api-gateway/prod.yaml
+            gitops/services/api-gateway/prod.yaml
 
       - name: Commit and Push GitOps repo
         run: |
           cd gitops
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add values/api-gateway/prod.yaml
+          git add services/api-gateway/prod.yaml
           git commit -m "deploy(api-gateway): ${{ github.sha }}"
           git push
 
