@@ -55,9 +55,9 @@ spring:
               type: FIXED
               max-connections: 300
               acquire-timeout: 3000
-              max-idle-time: 20s
+              max-idle-time: 10s
               max-life-time: 5m
-              eviction-interval: 30s
+              eviction-interval: 10s
             compression: true
             wiretap: true
             ssl:
