@@ -34,8 +34,7 @@ public class MemberService {
     public Optional<Member> findByPublicId(Long memberId) {
         long currentTime = System.currentTimeMillis();
         Optional<Member> byPublicId = memberRepository.findByPublicId(memberId);
-
-        log.info("MemberService.findByPublicId memberId={} took {}ms", memberId, System.currentTimeMillis() - currentTime);
+        log.info("Query memberId={} took {}ms", memberId, System.currentTimeMillis() - currentTime);
         return byPublicId;
     }
 

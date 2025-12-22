@@ -4,11 +4,6 @@ server:
     enabled: true
   shutdown: graceful
 
-logging:
-  level:
-    reactor.netty: DEBUG
-    org.springframework.cloud.gateway: DEBUG
-
 management:
   server:
     port: ${MANAGEMENT_PORT:20011}
@@ -30,7 +25,3 @@ spring:
           discovery:
             locator:
               enabled: false
-          httpclient:
-            connect-timeout: 3000
-            response-timeout: 3s
-            wiretap: true

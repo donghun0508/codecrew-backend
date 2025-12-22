@@ -21,10 +21,7 @@ public class MemberUseCase {
     private final MemberService memberService;
 
     public MemberResult findByToken(PlainToken accessToken) {
-        long startTime = System.currentTimeMillis();
         JsonWebTokenClaims accessTokenClaims = tokenService.parse(accessToken);
-        log.info("MemberUseCase.findByToken token={} took {}ms", accessToken, System.currentTimeMillis() - startTime);
-
         return MemberResult.from(
             memberService.findByPublicId(requireNonNull(accessTokenClaims.getClaimAsLong()))
                 .orElseThrow(() -> new CoreException(CoreErrorCode.NOT_FOUND,
