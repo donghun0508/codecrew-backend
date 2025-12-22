@@ -45,15 +45,15 @@ spring:
             locator:
               enabled: false
           httpclient:
-            response-timeout: 5s
+            response-timeout: 30s
             connect-timeout: 3000
             pool:
               type: FIXED
-              max-connections: 100
+              max-connections: 300
               acquire-timeout: 3000
-              max-idle-time: 10s
+              max-idle-time: 20s
               max-life-time: 5m
-              eviction-interval: 10s
+              eviction-interval: 30s
             compression: true
             wiretap: false
             ssl:
