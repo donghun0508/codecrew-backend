@@ -8,29 +8,6 @@ management:
   server:
     port: ${MANAGEMENT_PORT:20011}
 
-#logging:
-#  level:
-#    root: INFO
-#    org.springframework.cloud.gateway: TRACE
-#    org.springframework.web.reactive: TRACE
-##    reactor.netty: TRACE
-#    org.springframework.http.server.reactive: TRACE
-
-#logging:
-#  level:
-#    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
-#    org.springframework.cloud.gateway.handler.FilteringWebHandler: DEBUG
-#    site.codecrew.apigateway.filter.global.RequestLoggingFilter: INFO
-#
-#    org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter: INFO
-#    org.springframework.web.reactive.result.method.annotation.ResponseEntityResultHandler: INFO
-#    org.springframework.http.server.reactive.ReactorHttpHandlerAdapter: INFO
-#
-#    reactor.netty.resources: DEBUG
-#    reactor.netty.http.client: DEBUG
-#    reactor.netty.transport: DEBUG
-#    io.netty.channel: INFO
-
 spring:
   reactor:
     context-propagation: auto
@@ -53,7 +30,7 @@ spring:
           httpclient:
             connect-timeout: 3000
             pool:
-              type: DISABLED
+              type: FIXED
               max-connections: 300
               acquire-timeout: 3000
               max-idle-time: 30s

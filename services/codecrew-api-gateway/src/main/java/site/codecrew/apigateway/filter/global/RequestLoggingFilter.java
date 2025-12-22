@@ -41,6 +41,16 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
                         span != null ? span.context().spanId() : null
                     );
                 })
+                .doOnError(e -> {
+                    var span = tracer.currentSpan();
+                    log.error("[SCG][ERROR] {} {} exClass={} msg={} traceId={} spanId={}",
+                        request.getMethod(), request.getURI(),
+                        e.getClass().getName(), e.getMessage(),
+                        span != null ? span.context().traceId() : null,
+                        span != null ? span.context().spanId() : null,
+                        e
+                    );
+                })
                 .doFinally(st -> {
                     var span = tracer.currentSpan();
                     long durationMs = (System.nanoTime() - startTime) / 1_000_000;
@@ -51,6 +61,7 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
                     );
                 });
         };
+    }
 
 //        return (exchange, chain) -> Mono.defer(() -> {
 //            var request = exchange.getRequest();
@@ -107,10 +118,10 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
 //                    }
 //                });
 //        });
-    }
+//    }
 
-    private void injectTraceHeaders(HttpHeaders headers, Span span) {
-        // Propagator가 설정된 포맷(W3C traceparent, B3 등)에 맞게 자동 주입
-        propagator.inject(span.context(), headers, HttpHeaders::set);
-    }
+//    private void injectTraceHeaders(HttpHeaders headers, Span span) {
+//        // Propagator가 설정된 포맷(W3C traceparent, B3 등)에 맞게 자동 주입
+//        propagator.inject(span.context(), headers, HttpHeaders::set);
+//    }
 }
