@@ -35,29 +35,60 @@ public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLo
             return chain.filter(exchange)
                 .doFirst(() -> {
                     var span = tracer.currentSpan();
-                    log.info("[SCG][START] {} {} traceId={} spanId={}",
+                    log.info("[SCG][START] {} {} traceId={} spanId={} remote={} headers={}",
                         request.getMethod(), request.getURI(),
                         span != null ? span.context().traceId() : null,
-                        span != null ? span.context().spanId() : null
+                        span != null ? span.context().spanId() : null,
+                        request.getRemoteAddress(),
+                        request.getHeaders()
                     );
                 })
                 .doOnError(e -> {
                     var span = tracer.currentSpan();
-                    log.error("[SCG][ERROR] {} {} exClass={} msg={} traceId={} spanId={}",
-                        request.getMethod(), request.getURI(),
-                        e.getClass().getName(), e.getMessage(),
+                    long durationMs = (System.nanoTime() - startTime) / 1_000_000;
+
+                    Throwable root = e;
+                    int depth = 0;
+                    while (root.getCause() != null && root.getCause() != root && depth++ < 50) {
+                        root = root.getCause();
+                    }
+
+                    StringBuilder chainStr = new StringBuilder();
+                    Throwable cur = e;
+                    int chainDepth = 0;
+                    while (cur != null && chainDepth++ < 15) {
+                        if (chainDepth > 1) chainStr.append(" -> ");
+                        chainStr.append(cur.getClass().getName());
+                        if (cur.getMessage() != null && !cur.getMessage().isBlank()) {
+                            chainStr.append(": ").append(cur.getMessage());
+                        }
+                        cur = cur.getCause();
+                    }
+
+                    log.error(
+                        "[SCG][ERROR] {} {} took={}ms traceId={} spanId={} " +
+                            "exClass={} msg={} rootClass={} rootMsg={} causeChain={} " +
+                            "routeId={} requestUrl={} attrs={}",
+                        request.getMethod(), request.getURI(), durationMs,
                         span != null ? span.context().traceId() : null,
                         span != null ? span.context().spanId() : null,
+                        e.getClass().getName(), e.getMessage(),
+                        root.getClass().getName(), root.getMessage(),
+                        chainStr.toString(),
+                        exchange.getAttribute("org.springframework.cloud.gateway.support.ServerWebExchangeUtils.gatewayRoute"),
+                        exchange.getAttribute("org.springframework.cloud.gateway.support.ServerWebExchangeUtils.gatewayRequestUrl"),
+                        exchange.getAttributes(),
                         e
                     );
                 })
                 .doFinally(st -> {
                     var span = tracer.currentSpan();
                     long durationMs = (System.nanoTime() - startTime) / 1_000_000;
-                    log.info("[SCG][FINALLY] {} {} signal={} took={}ms traceId={} spanId={}",
+                    log.info("[SCG][FINALLY] {} {} signal={} took={}ms traceId={} spanId={} status={}",
                         request.getMethod(), request.getURI(), st, durationMs,
                         span != null ? span.context().traceId() : null,
-                        span != null ? span.context().spanId() : null
+                        span != null ? span.context().spanId() : null,
+                        exchange.getResponse().getStatusCode()
                     );
                 });
         };
