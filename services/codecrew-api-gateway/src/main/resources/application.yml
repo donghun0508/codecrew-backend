@@ -8,6 +8,12 @@ management:
   server:
     port: ${MANAGEMENT_PORT:20011}
 
+logging:
+  level:
+    reactor.netty.http.client: DEBUG
+    reactor.netty.transport: DEBUG
+    reactor.netty.resources: DEBUG
+
 spring:
   reactor:
     context-propagation: auto
