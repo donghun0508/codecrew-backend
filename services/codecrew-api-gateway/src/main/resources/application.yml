@@ -49,11 +49,11 @@ spring:
             connect-timeout: 3000
             pool:
               type: FIXED
-              max-connections: 500
+              max-connections: 100
               acquire-timeout: 3000
-              max-idle-time: 20s
+              max-idle-time: 10s
               max-life-time: 5m
-              eviction-interval: 30s
+              eviction-interval: 10s
             compression: true
             wiretap: false
             ssl:
