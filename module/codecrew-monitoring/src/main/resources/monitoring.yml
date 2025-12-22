@@ -1,11 +1,8 @@
 management:
   tracing:
-    enabled: false
-  otlp:
-    tracing:
-      enabled: false
-    metrics:
-      enabled: false
+    enabled: true
+    sampling:
+      probability: 1.0
   metrics:
     distribution:
       percentiles-histogram:
