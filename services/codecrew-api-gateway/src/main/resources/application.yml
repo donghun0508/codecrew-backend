@@ -51,14 +51,14 @@ spring:
             locator:
               enabled: false
           httpclient:
-            response-timeout: 30s
+            response-timeout: 10s
             connect-timeout: 3000
             pool:
               type: FIXED
               max-connections: 300
               acquire-timeout: 3000
-              max-idle-time: 3s
-              max-life-time: 30s
+              max-idle-time: 20s
+              max-life-time: 60s
               eviction-interval: 5s
             compression: true
             wiretap: true

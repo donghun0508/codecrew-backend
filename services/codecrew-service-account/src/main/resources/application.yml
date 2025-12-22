@@ -8,7 +8,7 @@ server:
     connection-timeout: 1m
     max-connections: 8192
     accept-count: 100
-    keep-alive-timeout: 60s
+    keep-alive-timeout: 30s
     max-keep-alive-requests: 100
 
 management:
