@@ -1,6 +1,8 @@
 management:
   tracing:
     enabled: true
+    propagation:
+      type: w3c
   metrics:
     distribution:
       percentiles-histogram:

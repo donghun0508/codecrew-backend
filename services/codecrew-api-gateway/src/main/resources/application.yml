@@ -16,22 +16,24 @@ management:
 ##    reactor.netty: TRACE
 #    org.springframework.http.server.reactive: TRACE
 
-logging:
-  level:
-    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
-    org.springframework.cloud.gateway.handler.FilteringWebHandler: DEBUG
-    site.codecrew.apigateway.filter.global.RequestLoggingFilter: INFO
-
-    org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter: INFO
-    org.springframework.web.reactive.result.method.annotation.ResponseEntityResultHandler: INFO
-    org.springframework.http.server.reactive.ReactorHttpHandlerAdapter: INFO
-
-    reactor.netty.resources: DEBUG
-    reactor.netty.http.client: DEBUG
-    reactor.netty.transport: DEBUG
-    io.netty.channel: INFO
+#logging:
+#  level:
+#    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+#    org.springframework.cloud.gateway.handler.FilteringWebHandler: DEBUG
+#    site.codecrew.apigateway.filter.global.RequestLoggingFilter: INFO
+#
+#    org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter: INFO
+#    org.springframework.web.reactive.result.method.annotation.ResponseEntityResultHandler: INFO
+#    org.springframework.http.server.reactive.ReactorHttpHandlerAdapter: INFO
+#
+#    reactor.netty.resources: DEBUG
+#    reactor.netty.http.client: DEBUG
+#    reactor.netty.transport: DEBUG
+#    io.netty.channel: INFO
 
 spring:
+  reactor:
+    context-propagation: auto
   application:
     name: codecrew-api-gateway
   config:
