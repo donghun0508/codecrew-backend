@@ -13,6 +13,7 @@ testcontainers = "1.19.7"
 jakarta-persistence = "3.2.0"
 jackson-bom = "3.0-rc5"
 classgraphVersion = "4.8.184"
+logstashLogbackEncoder = "9.0"
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
@@ -49,10 +50,11 @@ nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
 testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 org-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 
+logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstashLogbackEncoder" }
 micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
-micrometer-tracing = { module = "io.micrometer:micrometer-tracing" }
-micrometer-tracing-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
-otel-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+spring-boot-micrometer-tracing = { module = "org.springframework.boot:spring-boot-micrometer-tracing" }
+spring-boot-micrometer-tracing-brave = { module = "org.springframework.boot:spring-boot-micrometer-tracing-brave" }
+micrometer-tracing-bridge-brave = { module = "io.micrometer:micrometer-tracing-bridge-brave" }
 
 netty-resolver-dns-macos = { module = "io.netty:netty-resolver-dns-native-macos" }
 
@@ -82,15 +84,16 @@ spring-boot-data-redis = [
 ]
 
 spring-boot-logging = [
-    "spring-boot-starter-logging"
+    "spring-boot-starter-logging",
+    "logstash-logback-encoder"
 ]
 
 spring-boot-monitoring = [
     "spring-boot-starter-actuator",
     "micrometer-prometheus",
-    "micrometer-tracing",
-    "micrometer-tracing-otel",
-    "otel-exporter-otlp"
+    "spring-boot-micrometer-tracing",
+    "spring-boot-micrometer-tracing-brave",
+    "micrometer-tracing-bridge-brave"
 ]
 
 spring-boot-test = [
