@@ -28,6 +28,7 @@ spring:
             locator:
               enabled: false
           httpclient:
+            response-timeout: 5s
             connect-timeout: 3000
             pool:
               type: FIXED
