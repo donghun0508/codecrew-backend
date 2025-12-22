@@ -26,6 +26,10 @@ logging:
     org.springframework.web.reactive.result.method.annotation.ResponseEntityResultHandler: INFO
     org.springframework.http.server.reactive.ReactorHttpHandlerAdapter: INFO
 
+    reactor.netty.resources: DEBUG
+    reactor.netty.http.client: DEBUG
+    reactor.netty.transport: DEBUG
+    io.netty.channel: INFO
 
 spring:
   application:
@@ -55,7 +59,7 @@ spring:
               max-life-time: 5m
               eviction-interval: 30s
             compression: true
-            wiretap: false
+            wiretap: true
             ssl:
               use-insecure-trust-manager: false
               handshake-timeout: 10s
