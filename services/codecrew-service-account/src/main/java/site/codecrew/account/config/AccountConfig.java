@@ -25,38 +25,41 @@ public class AccountConfig {
 
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
-        return factory -> {
-            factory.addEngineValves(new ValveBase() {
-                @Override
-                public void invoke(Request request, Response response)
-                    throws IOException, ServletException {
+        return factory -> factory.addEngineValves(new ValveBase() {
+            @Override
+            public void invoke(Request request, Response response) throws IOException, ServletException {
+                String uri = request.getRequestURI();
 
-                    String uri = request.getRequestURI();
+                if (shouldSkipLogging(uri)) {
+                    getNext().invoke(request, response);
+                    return;
+                }
 
-                    if (shouldSkipLogging(uri)) {
-                        getNext().invoke(request, response);
-                        return;
-                    }
+                long start = System.currentTimeMillis();
+                log.info(">>> [TOMCAT IN] {}", uri);
 
-                    long start = System.currentTimeMillis();
-                    log.info(">>> [TOMCAT IN] {}", uri);
+                try {
+                    getNext().invoke(request, response);
+                } finally {
+                    long took = System.currentTimeMillis() - start;
 
                     try {
-                        getNext().invoke(request, response);
-                    } finally {
-                        log.info("<<< [TOMCAT OUT] {} in {}ms",
-                            response.getStatus(),
-                            System.currentTimeMillis() - start
-                        );
+                        response.flushBuffer(); // 실제 write/flush 시점에서 에러(끊김/RESET 등) 확인
+                        log.info("<<< [TOMCAT OUT] status={} took={}ms flushed=true committed={}",
+                            response.getStatus(), took, response.isCommitted());
+                    } catch (IOException ex) {
+                        log.error("<<< [TOMCAT OUT] status={} took={}ms flushed=false committed={} exClass={} msg={}",
+                            response.getStatus(), took, response.isCommitted(),
+                            ex.getClass().getName(), ex.getMessage(), ex);
                     }
                 }
+            }
 
-                private boolean shouldSkipLogging(String uri) {
-                    return EXCLUDED_PATHS.contains(uri) ||
-                        uri.startsWith("/actuator/");
-                }
-            });
-        };
+            private boolean shouldSkipLogging(String uri) {
+                return EXCLUDED_PATHS.contains(uri) || uri.startsWith("/actuator/");
+            }
+        });
     }
+
 
 }
