@@ -30,18 +30,37 @@ public class RequestLoggingFilter
             );
 
             return chain.filter(exchange)
-                .then(Mono.fromRunnable(() -> {
+                .doOnSuccess(v -> {
                     var response = exchange.getResponse();
-                    long durationMs =
-                        (System.nanoTime() - startTime) / 1_000_000;
-
+                    long durationMs = (System.nanoTime() - startTime) / 1_000_000;
                     log.info("[SCG][END] {} {} status={} took={}ms",
                         request.getMethod(),
                         request.getURI(),
                         response.getStatusCode(),
                         durationMs
                     );
-                }));
+                })
+                .doOnError(e -> {
+                    long durationMs = (System.nanoTime() - startTime) / 1_000_000;
+                    log.error("[SCG][ERROR] {} {} took={}ms msg={}",
+                        request.getMethod(),
+                        request.getURI(),
+                        durationMs,
+                        e.toString(),
+                        e
+                    );
+                })
+                .doFinally(signalType -> {
+                    var response = exchange.getResponse();
+                    long durationMs = (System.nanoTime() - startTime) / 1_000_000;
+                    log.info("[SCG][FINALLY] {} {} signal={} status={} took={}ms",
+                        request.getMethod(),
+                        request.getURI(),
+                        signalType,
+                        response.getStatusCode(),
+                        durationMs
+                    );
+                });
         };
     }
 }
