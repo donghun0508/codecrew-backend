@@ -48,10 +48,12 @@ spring:
             response-timeout: 5s
             connect-timeout: 3000
             pool:
-              type: DISABLED
+              type: FIXED
               max-connections: 500
-              max-idle-time: 30s
               acquire-timeout: 3000
+              max-idle-time: 20s
+              max-life-time: 5m
+              eviction-interval: 30s
             compression: true
             wiretap: false
             ssl:
