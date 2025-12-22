@@ -8,26 +8,39 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class RequestLoggingFilter extends AbstractGatewayFilterFactory<RequestLoggingFilter.Config> {
+public class RequestLoggingFilter
+    extends AbstractGatewayFilterFactory<RequestLoggingFilter.Config> {
 
     public RequestLoggingFilter() {
         super(Config.class);
     }
 
     public static class Config {
-
     }
 
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
-            var req = exchange.getRequest();
-            log.info("[Request] {} {}", req.getMethod(), req.getURI());
+            var request = exchange.getRequest();
+            long startTime = System.nanoTime();
+
+            log.info("[SCG][START] {} {}",
+                request.getMethod(),
+                request.getURI()
+            );
 
             return chain.filter(exchange)
                 .then(Mono.fromRunnable(() -> {
-                    var res = exchange.getResponse();
-                    log.info("[Response] {} {}", res.getStatusCode(), req.getURI());
+                    var response = exchange.getResponse();
+                    long durationMs =
+                        (System.nanoTime() - startTime) / 1_000_000;
+
+                    log.info("[SCG][END] {} {} status={} took={}ms",
+                        request.getMethod(),
+                        request.getURI(),
+                        response.getStatusCode(),
+                        durationMs
+                    );
                 }));
         };
     }
