@@ -14,7 +14,7 @@ spring:
   config:
     import:
       - logging.yml
-      - monitoring.yml
+#      - monitoring.yml
       - classpath:application-cors.yml
       - classpath:application-filter.yml
       - classpath:application-route.yml

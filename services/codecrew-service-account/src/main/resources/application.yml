@@ -14,7 +14,7 @@ spring:
   config:
     import:
       - logging.yml
-      - monitoring.yml
+#      - monitoring.yml
       - redis.yml
   datasource:
     url: ${DB_URL}
