@@ -53,7 +53,7 @@ spring:
           httpclient:
             connect-timeout: 3000
             pool:
-              type: FIXED
+              type: DISABLED
               max-connections: 300
               acquire-timeout: 3000
               max-idle-time: 30s
