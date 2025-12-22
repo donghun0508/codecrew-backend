@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
-@Configuration
+// @Configuration
 public class AccountConfig {
 
     private static final Set<String> EXCLUDED_PATHS = Set.of(

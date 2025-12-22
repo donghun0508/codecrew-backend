@@ -8,11 +8,6 @@ management:
   server:
     port: ${MANAGEMENT_PORT:20011}
 
-logging:
-  level:
-    reactor.netty.http.client: DEBUG
-    reactor.netty.transport: DEBUG
-    reactor.netty.resources: DEBUG
 
 spring:
   reactor:
@@ -40,9 +35,9 @@ spring:
               type: FIXED
               max-connections: 300
               acquire-timeout: 3000
-              max-idle-time: 1s
-              max-life-time: 0s
+              max-idle-time: 2s
               eviction-interval: 1s
+              max-life-time: 0s
             compression: true
             wiretap: false
             ssl:

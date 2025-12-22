@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Slf4j
-@Component
+// @Component
 public class RequestTimingFilter extends OncePerRequestFilter {
 
     @Override

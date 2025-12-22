@@ -11,6 +11,9 @@ server:
 #    org.springframework.web.reactive: TRACE
 ##    reactor.netty: TRACE
 #    org.springframework.http.server.reactive: TRACE
+#    reactor.netty.http.client: DEBUG
+#    reactor.netty.transport: DEBUG
+#    reactor.netty.resources: DEBUG
 
 #logging:
 #  level:
