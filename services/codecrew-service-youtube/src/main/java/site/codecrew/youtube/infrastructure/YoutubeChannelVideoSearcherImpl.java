@@ -18,7 +18,7 @@ import site.codecrew.youtube.domain.YoutubeVideoBatch;
 @Component
 class YoutubeChannelVideoSearcherImpl implements YoutubeChannelVideoSearcher {
 
-    private static final int MAX_RESULTS = 5; // 테스트용
+    private static final int MAX_RESULTS = 50;
     private static final String PART = "contentDetails,snippet";
 
     private final YoutubeClient youtubeClient;
