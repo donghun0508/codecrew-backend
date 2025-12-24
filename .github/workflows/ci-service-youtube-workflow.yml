@@ -1,16 +1,16 @@
-name: ci-account-service-workflow
+name: ci-service-youtube-workflow
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - services/codecrew-service-account/**
+      - services/codecrew-service-youtube/**
       - build.gradle.kts
       - settings.gradle.kts
       - build-logic/**
       - gradle/**
       - module/**
-      - .github/workflows/ci-account-service-workflow.yml
+      - ci-service-youtube-workflow.yml
 
 permissions:
   contents: read
@@ -34,7 +34,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
-          ./gradlew :services:codecrew-service-account:bootJar -x test
+          ./gradlew :services:codecrew-service-youtube:bootJar -x test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -50,11 +50,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: services/codecrew-service-account/Dockerfile
+          file: services/codecrew-service-youtube/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/account-service:latest
-            ghcr.io/${{ github.repository_owner }}/account-service:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/youtube-service:latest
+            ghcr.io/${{ github.repository_owner }}/youtube-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -73,14 +73,14 @@ jobs:
         run: |
           sed -i \
             "s/^  tag: .*/  tag: ${{ github.sha }}/" \
-            gitops/services/account-service/prod.yaml
+            gitops/services/youtube-service/prod.yaml
 
       - name: Commit and Push GitOps repo
         run: |
           cd gitops
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add services/account-service/prod.yaml
-          git commit -m "deploy(account-service): ${{ github.sha }}"
+          git add services/youtube-service/prod.yaml
+          git commit -m "deploy(youtube-service): ${{ github.sha }}"
           git push
 

@@ -1,0 +1,62 @@
+server:
+  port: ${SERVER_PORT:20030}
+  shutdown: graceful
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    connection-timeout: 1m
+    max-connections: 8192
+    accept-count: 100
+    keep-alive-timeout: 60s
+    max-keep-alive-requests: 100
+
+management:
+  server:
+    port: ${MANAGEMENT_PORT:8081}
+
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  application:
+    name: youtube-service
+  config:
+    import:
+      - logging.yml
+      - monitoring.yml
+      - redis.yml
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+youtube:
+  api:
+    base-url: "https://www.googleapis.com/youtube/v3"
+    api-key: "${YOUTUBE_API_KEY}"
+
+    defaults:
+      part: "snippet"
+      region-code: "KR"
+      hl: "ko-KR"
+
+    timeout:
+      connect: 2s
+      read: 5s
+
+    retry:
+      max-attempts: 2
+      backoff: 200ms
+
+    rate-limit:
+      enabled: true
+      requests-per-second: 8
+
+    logging:
+      request: false
+      response: false
