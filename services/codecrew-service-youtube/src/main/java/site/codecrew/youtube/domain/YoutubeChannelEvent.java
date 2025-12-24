@@ -1,11 +1,13 @@
 package site.codecrew.youtube.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 import site.codecrew.core.domain.DomainEvent;
 
 public class YoutubeChannelEvent {
 
     @Getter
+    @ToString
     public static class YoutubeChannelCreatedEvent extends DomainEvent {
 
         private final String channelId;
