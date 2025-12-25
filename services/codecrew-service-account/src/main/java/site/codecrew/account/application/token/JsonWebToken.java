@@ -19,17 +19,7 @@ public record JsonWebToken(
         return type == REFRESH || type == TEMPORARY;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        JsonWebToken that = (JsonWebToken) o;
-        return Objects.equals(rawToken(), that.rawToken());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(rawToken());
+    public boolean isEqualRawToken(String rawToken) {
+        return Objects.equals(this.rawToken, rawToken);
     }
 }

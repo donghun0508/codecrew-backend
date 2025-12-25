@@ -1,4 +1,4 @@
-package site.codecrew.starter.web.autoconfigure;
+package site.codecrew.core.exception.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

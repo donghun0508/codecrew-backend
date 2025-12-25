@@ -1,1 +1,2 @@
 site.codecrew.core.idgenerator.autoconfigure.IdGeneratorAutoConfiguration
+site.codecrew.core.exception.autoconfigure.CoreErrorMappingAutoConfiguration

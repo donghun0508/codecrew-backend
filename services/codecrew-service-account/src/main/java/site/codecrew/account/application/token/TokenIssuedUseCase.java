@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import site.codecrew.account.application.auth.AuthenticatedTokenResult;
 import site.codecrew.account.application.exception.AccountErrorCode;
-import site.codecrew.account.application.exception.InvalidRefreshTokenException;
 import site.codecrew.account.application.exception.TokenException;
 import site.codecrew.account.domain.Member;
 import site.codecrew.account.domain.MemberService;
@@ -24,7 +23,7 @@ public class TokenIssuedUseCase {
         JsonWebToken findJsonWebToken = jsonWebTokenService.findByTypeAndSubject(refreshToken.type(), clientRefreshWebToken.subject())
             .orElseThrow(() -> new TokenException(AccountErrorCode.TOKEN_INVALID));
 
-        if(!findJsonWebToken.equals(clientRefreshWebToken)) {
+        if(!findJsonWebToken.isEqualRawToken(refreshToken.rawToken())) {
             jsonWebTokenService.revokeRefreshSession(findJsonWebToken);
             throw new TokenException(AccountErrorCode.INVALID_REFRESH_TOKEN);
         }
