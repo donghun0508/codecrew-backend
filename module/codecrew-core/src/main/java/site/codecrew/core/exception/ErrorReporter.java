@@ -1,8 +1,7 @@
-package site.codecrew.starter.web.support;
+package site.codecrew.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import site.codecrew.core.exception.ErrorCode;
 
 @Slf4j
 @Component

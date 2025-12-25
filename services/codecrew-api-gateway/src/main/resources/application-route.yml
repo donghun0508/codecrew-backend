@@ -12,3 +12,7 @@ spring:
               uri: ${YOUTUBE_SERVICE_URL:http://localhost:20020}
               predicates:
                 - Path=/api/v1/youtube/**
+            - id: world-service
+              uri: ${WORLD_SERVICE_URL:http://localhost:20020}
+              predicates:
+                - Path=/api/v1/ws/worlds/**, /api/v1/players/**
