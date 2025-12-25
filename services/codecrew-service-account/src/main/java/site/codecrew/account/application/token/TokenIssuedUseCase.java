@@ -22,11 +22,11 @@ public class TokenIssuedUseCase {
         JsonWebTokenClaims refreshTokenClaims = jsonWebTokenService.parse(refreshToken);
         JsonWebToken clientRefreshWebToken = refreshTokenClaims.toToken();
         JsonWebToken findJsonWebToken = jsonWebTokenService.findByTypeAndSubject(refreshToken.type(), clientRefreshWebToken.subject())
-            .orElseThrow(() -> new InvalidRefreshTokenException(refreshToken));
+            .orElseThrow(() -> new TokenException(AccountErrorCode.TOKEN_INVALID));
 
         if(!findJsonWebToken.equals(clientRefreshWebToken)) {
             jsonWebTokenService.revokeRefreshSession(findJsonWebToken);
-            throw new TokenException(AccountErrorCode.REFRESH_TOKEN_REUSED);
+            throw new TokenException(AccountErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         Member member = memberService.findByPublicId(

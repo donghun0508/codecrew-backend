@@ -6,6 +6,6 @@ import site.codecrew.core.exception.CoreException;
 public class InvalidRefreshTokenException extends CoreException {
 
     public InvalidRefreshTokenException(PlainToken refreshToken) {
-        super(AccountErrorCode.INVALID_REFRESH_TOKEN, "Invalid refresh token: " + refreshToken);
+        super(AccountErrorCode.TOKEN_INVALID, "Invalid refresh token: " + refreshToken);
     }
 }

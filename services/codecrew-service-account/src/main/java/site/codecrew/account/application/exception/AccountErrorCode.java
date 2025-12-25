@@ -8,9 +8,8 @@ import site.codecrew.core.exception.LogLevel;
 public enum AccountErrorCode implements ErrorCode {
 
     TOKEN_EXPIRED(401, "T001", "토큰이 만료되었습니다", null, WARN),
-    INVALID_REFRESH_TOKEN(401, "T002", "인증 정보가 유효하지 않습니다.", null,  WARN),
+    INVALID_REFRESH_TOKEN(401, "T002", "인증 정보가 유효하지 않습니다.", "비정상적인 로그인 시도가 감지되었습니다. 보안을 위해 로그아웃되었습니다.",  WARN),
     TOKEN_INVALID(401, "T003", "토큰이 유효하지 않습니다.", null, WARN),
-    REFRESH_TOKEN_REUSED(401, "T004", "인증 정보가 유효하지 않습니다.", "비정상적인 로그인 시도가 감지되었습니다. 보안을 위해 로그아웃되었습니다.", WARN),
     ;
 
     private final int httpStatus;
