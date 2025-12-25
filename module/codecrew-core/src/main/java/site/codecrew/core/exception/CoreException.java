@@ -16,6 +16,10 @@ public class CoreException extends RuntimeException {
         this(code, message, null);
     }
 
+    public CoreException(ErrorCode code, Throwable cause) {
+        this(code, null, cause);
+    }
+
     public CoreException(ErrorCode code, String message, Throwable cause) {
         super(message, cause);
         this.code = code;

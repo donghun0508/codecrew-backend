@@ -4,5 +4,6 @@ import java.util.Optional;
 
 public interface JsonWebTokenRepository {
     void save(JsonWebToken jsonWebToken);
-    Optional<String> findByClaims(JsonWebTokenClaims claims);
+    void delete(JsonWebToken jsonWebToken);
+    Optional<JsonWebToken> findByTypeAndSubject(JsonWebTokenType type, String subject);
 }

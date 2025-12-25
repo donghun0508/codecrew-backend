@@ -63,9 +63,9 @@ oauth:
 
 jwt:
   token-exp-seconds:
-    access: 3600
-    refresh: 86400
-    temporary: 600
+    access: ${JWT_EXPIRATION_ACCESS_TOKEN_SECOND}
+    refresh: ${JWT_EXPIRATION_REFRESH_TOKEN_SECOND}
+    temporary: ${JWT_EXPIRATION_TEMPORARY_TOKEN_SECOND}
   token-claims:
     issuer: codecrew
     audience: codecrew-account

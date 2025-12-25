@@ -2,6 +2,7 @@ package site.codecrew.account.infrastructure.token;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -10,6 +11,8 @@ import java.util.EnumMap;
 import java.util.Objects;
 import javax.crypto.SecretKey;
 import org.springframework.stereotype.Component;
+import site.codecrew.account.application.exception.AccountErrorCode;
+import site.codecrew.account.application.exception.TokenException;
 import site.codecrew.account.application.token.ClaimKey;
 import site.codecrew.account.application.token.JsonWebTokenClaims;
 import site.codecrew.account.application.token.JsonWebTokenParser;
@@ -55,6 +58,8 @@ class JsonWebTokenParserImpl implements JsonWebTokenParser {
                 subject = expiredClaims.getSubject();
             }
             throw new TokenExpiredException(subject);
+        } catch (JwtException e) {
+            throw new TokenException(AccountErrorCode.TOKEN_INVALID, e);
         }
     }
 }

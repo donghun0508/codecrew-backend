@@ -24,8 +24,7 @@ public class MemberUseCase {
         JsonWebTokenClaims accessTokenClaims = tokenService.parse(accessToken);
         return MemberResult.from(
             memberService.findByPublicId(requireNonNull(accessTokenClaims.getClaimAsLong()))
-                .orElseThrow(() -> new CoreException(CoreErrorCode.NOT_FOUND,
-                    "Member not found with id: " + accessTokenClaims.subject())));
+        );
     }
 
     public MemberDuplicationCheckResult duplicationNameCheck(String nickname) {

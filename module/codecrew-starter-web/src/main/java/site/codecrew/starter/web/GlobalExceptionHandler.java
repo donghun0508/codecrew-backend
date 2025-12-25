@@ -61,7 +61,7 @@ public final class GlobalExceptionHandler {
         return response(ErrorResponse.from(code));
     }
 
-    private ResponseEntity<ApiResponse<Void>> response(ErrorResponse error) {
+    public static ResponseEntity<ApiResponse<Void>> response(ErrorResponse error) {
         return ResponseEntity.status(error.status()).body(ApiResponse.error(error));
     }
 }

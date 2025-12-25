@@ -1,12 +1,23 @@
 package site.codecrew.account.application.token;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public record JsonWebTokenClaims(
     String subject,
     Map<ClaimKey, Object> claims
 ) {
+
+    public JsonWebToken toToken() {
+        return new JsonWebToken(
+            subject,
+            null,
+            null,
+            null,
+            JsonWebTokenType.valueOf(Objects.requireNonNull(getClaimAsString(ClaimKey.TYPE)).toUpperCase())
+        );
+    }
 
     public Long getClaimAsLong() {
         return subject != null ? Long.valueOf(subject) : null;

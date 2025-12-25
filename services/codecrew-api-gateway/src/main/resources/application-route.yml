@@ -7,7 +7,7 @@ spring:
             - id: account-service
               uri: ${ACCOUNT_SERVICE_URL:http://localhost:20020}
               predicates:
-                - Path=/api/v1/members/**, /api/v1/oauth/**
+                - Path=/api/v1/members/**, /api/v1/oauth/**, /api/v1/auth/**
             - id: youtube-service
               uri: ${YOUTUBE_SERVICE_URL:http://localhost:20020}
               predicates:

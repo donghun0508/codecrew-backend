@@ -1,5 +1,6 @@
 package site.codecrew.account.application.token;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.codecrew.account.application.token.AuthenticatedToken.Authenticated;
@@ -33,5 +34,13 @@ public class JsonWebTokenService {
 
     public JsonWebTokenClaims parseTemporaryToken(PlainToken plainToken) {
         return jsonWebTokenParser.parse(plainToken);
+    }
+
+    public Optional<JsonWebToken> findByTypeAndSubject(JsonWebTokenType type, String subject) {
+        return jsonWebTokenRepository.findByTypeAndSubject(type, subject);
+    }
+
+    public void revokeRefreshSession(JsonWebToken jsonWebToken) {
+        jsonWebTokenRepository.delete(jsonWebToken);
     }
 }

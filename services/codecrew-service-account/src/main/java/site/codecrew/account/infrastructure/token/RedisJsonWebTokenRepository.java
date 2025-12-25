@@ -41,14 +41,20 @@ class RedisJsonWebTokenRepository implements JsonWebTokenRepository {
     }
 
     @Override
-    public Optional<String> findByClaims(JsonWebTokenClaims claims) {
-        String typeValue = claims.getClaimAsString(ClaimKey.TYPE);
+    public void delete(JsonWebToken jsonWebToken) {
+        String key = keyGenerator.generate(jsonWebToken.type(), jsonWebToken.subject());
+        writeRedis.delete(key);
+    }
 
-        if (typeValue == null) {
+    @Override
+    public Optional<JsonWebToken> findByTypeAndSubject(JsonWebTokenType type, String subject) {
+        String key = keyGenerator.generate(type, subject);
+
+        String storedValue = readRedis.opsForValue().get(key);
+        if (storedValue == null) {
             return Optional.empty();
         }
-
-        String key = keyGenerator.generate(JsonWebTokenType.valueOf(typeValue), claims.subject());
-        return Optional.ofNullable(readRedis.opsForValue().get(key));
+        JsonWebToken jsonWebToken = new JsonWebToken(subject, storedValue, null, null, type);
+        return Optional.of(jsonWebToken);
     }
 }

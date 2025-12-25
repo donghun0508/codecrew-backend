@@ -31,11 +31,9 @@ public class MemberService {
         return memberRepository.findBySocial(profile.socialType().name(), profile.sub());
     }
 
-    public Optional<Member> findByPublicId(Long memberId) {
-        long currentTime = System.currentTimeMillis();
-        Optional<Member> byPublicId = memberRepository.findByPublicId(memberId);
-        log.info("Query memberId={} took {}ms", memberId, System.currentTimeMillis() - currentTime);
-        return byPublicId;
+    public Member findByPublicId(Long memberPublicId) {
+        return memberRepository.findByPublicId(memberPublicId)
+            .orElseThrow(() -> new CoreException(CoreErrorCode.NOT_FOUND, "Member not found with id: " + memberPublicId));
     }
 
     public Optional<Member> findByNickname(String nickname) {

@@ -43,3 +43,10 @@ spring:
             ssl:
               use-insecure-trust-manager: false
               handshake-timeout: 10s
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    whitelist: ${JWT_WHITELISTE_PATHS}
+
+

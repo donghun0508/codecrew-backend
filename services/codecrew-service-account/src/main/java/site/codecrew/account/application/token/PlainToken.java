@@ -10,11 +10,16 @@ public record PlainToken(JsonWebTokenType type, String rawToken) {
         return new PlainToken(JsonWebTokenType.TEMPORARY, extractRawToken(value));
     }
 
-    private static String extractRawToken(String bearerToken) {
-        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
-            throw new IllegalArgumentException("Invalid bearer token");
+    public static PlainToken refresh(String value) {
+        return new PlainToken(JsonWebTokenType.REFRESH, extractRawToken(value));
+    }
+
+    private static String extractRawToken(String token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token is null");
         }
-        return bearerToken.substring(7);
+        String prefix = "Bearer ";
+        return token.startsWith(prefix) ? token.substring(prefix.length()) : token;
     }
 
     public static PlainToken from(JsonWebToken token) {
