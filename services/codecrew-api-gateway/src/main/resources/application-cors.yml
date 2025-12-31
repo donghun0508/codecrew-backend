@@ -4,6 +4,7 @@ spring:
       server:
         webflux:
           globalcors:
+            add-to-simple-url-handler-mapping: true
             corsConfigurations:
               '[/**]':
                 allowedOrigins: ${CORS_ALLOWED_ORIGINS}

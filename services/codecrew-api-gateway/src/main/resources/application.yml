@@ -4,22 +4,33 @@ server:
     enabled: true
   shutdown: graceful
 
+
 management:
   server:
     port: ${MANAGEMENT_PORT:20011}
 
+app:
+  security:
+    permit-all: ${APP_SECURITY_PERMIT_ALL_PATHS}
 
 spring:
+  application:
+    name: ${APPLICATION_NAME}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  # NimbusReactiveJwtDecoder
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_ISSUER_URI}
   reactor:
     context-propagation: auto
-  application:
-    name: codecrew-api-gateway
   config:
     import:
       - logging.yml
       - monitoring.yml
       - classpath:application-cors.yml
-      - classpath:application-filter.yml
       - classpath:application-route.yml
   cloud:
     gateway:
@@ -29,8 +40,10 @@ spring:
             locator:
               enabled: false
           httpclient:
-            response-timeout: 10s
-            connect-timeout: 3000
+#            response-timeout: 10s
+#            connect-timeout: 3000
+            response-timeout: 60s
+            connect-timeout: 60000
             pool:
               type: FIXED
               max-connections: 300
@@ -43,10 +56,4 @@ spring:
             ssl:
               use-insecure-trust-manager: false
               handshake-timeout: 10s
-
-security:
-  jwt:
-    secret: ${JWT_SECRET}
-    whitelist: ${JWT_WHITELISTE_PATHS}
-
 
