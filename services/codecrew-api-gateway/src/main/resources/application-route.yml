@@ -23,7 +23,7 @@ spring:
             - id: member-service-public
               uri: ${MEMBER_SERVICE_URL:http://localhost:20020}
               predicates:
-                - Path=/api/v1/oidc/**
+                - Path=/api/v1/oidc/*/userinfo
               filters: *publicFilters
 
             # private
