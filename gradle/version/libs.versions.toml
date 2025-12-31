@@ -1,6 +1,7 @@
 [versions]
 java = "25"
 springBoot = "4.0.0"
+springBootAop = "4.0.0-M2"
 springDependencyManagement = "1.1.7"
 springCloudDependenciesVersion = "2025.1.0"
 springdocOpenapiStarterWebmvcUi = "3.0.0"
@@ -26,15 +27,17 @@ jackson-annotation = { module = "com.fasterxml.jackson.core:jackson-annotations"
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
 jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
 io-github-classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraphVersion" }
-
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
 spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 spring-boot-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBootAop" }
 springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapiStarterWebmvcUi"}
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-data-redisson = { module = "org.redisson:redisson-spring-boot-starter", version.ref = "springBoot" }
+spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive"}
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
@@ -82,7 +85,8 @@ spring-boot-data-jpa = [
 ]
 
 spring-boot-data-redis = [
-    "spring-boot-starter-data-redis"
+    "spring-boot-starter-data-redis",
+    "spring-boot-starter-data-redisson"
 ]
 
 spring-boot-logging = [

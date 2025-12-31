@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.spring.boot.starter.data.redis)
+    implementation(libs.bundles.spring.boot.data.redis)
+    implementation(project(":module:codecrew-core"))
     testFixturesImplementation("com.redis:testcontainers-redis")
 }

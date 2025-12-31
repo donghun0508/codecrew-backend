@@ -4,6 +4,11 @@ import io.lettuce.core.ReadFrom;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.MasterSlaveServersConfig;
+import org.redisson.config.ReadMode;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,6 +100,32 @@ public class RedisConfiguration {
         template.setConnectionFactory(lettuceConnectionFactory);
         template.afterPropertiesSet();
         return template;
+    }
+
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+
+        String password = redisProperties.password();
+        if (password != null && !password.isBlank() && !"null".equalsIgnoreCase(password)) {
+            config.setPassword(password);
+        }
+
+        MasterSlaveServersConfig serverConfig = config.useMasterSlaveServers()
+            .setMasterAddress("redis://" + redisProperties.master().host() + ":" + redisProperties.master().port())
+            .setDatabase(redisProperties.database());
+
+        serverConfig.setReadMode(ReadMode.MASTER);
+
+        List<RedisNodeInfo> replicas = redisProperties.replicas();
+        if (replicas != null && !replicas.isEmpty()) {
+            replicas.forEach(replica ->
+                serverConfig.addSlaveAddress("redis://" + replica.host() + ":" + replica.port())
+            );
+            serverConfig.setReadMode(ReadMode.SLAVE);
+        }
+
+        return Redisson.create(config);
     }
 
     private LettuceConnectionFactory lettuceConnectionFactory(
