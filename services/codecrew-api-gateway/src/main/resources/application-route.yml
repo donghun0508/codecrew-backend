@@ -21,13 +21,13 @@ spring:
                 - Path=/api/v1/youtube/videos
               filters: *publicFilters
 
+            # private
             - id: member-service
               uri: ${MEMBER_SERVICE_URL:http://localhost:20020}
               predicates:
-                - Path=/api/v1/members/**
+                - Path=/api/v1/members/**, /api/v1/oidc/**
               filters: *securedFilters
 
-            # private
             - id: youtube-service
               uri: ${YOUTUBE_SERVICE_URL:http://localhost:20020}
               predicates:
