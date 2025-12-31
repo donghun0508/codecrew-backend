@@ -20,7 +20,7 @@ public abstract class AggregateRoot extends BaseEntity {
     }
 
     public List<DomainEvent> pullDomainEvents() {
-        List<DomainEvent> copied = Collections.unmodifiableList(new ArrayList<>(domainEvents));
+        List<DomainEvent> copied = List.copyOf(domainEvents);
         domainEvents.clear();
         return copied;
     }
