@@ -20,12 +20,17 @@ spring:
               predicates:
                 - Path=/api/v1/youtube/videos
               filters: *publicFilters
+            - id: member-service-public
+              uri: ${MEMBER_SERVICE_URL:http://localhost:20020}
+              predicates:
+                - Path=/api/v1/oidc/**
+              filters: *publicFilters
 
             # private
             - id: member-service
               uri: ${MEMBER_SERVICE_URL:http://localhost:20020}
               predicates:
-                - Path=/api/v1/members/**, /api/v1/oidc/**
+                - Path=/api/v1/members/**
               filters: *securedFilters
 
             - id: youtube-service
