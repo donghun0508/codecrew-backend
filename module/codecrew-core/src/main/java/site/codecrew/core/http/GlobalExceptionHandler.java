@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:module/codecrew-core/src/main/java/site/codecrew/core/exception/GlobalExceptionHandler.java
-package site.codecrew.core.exception;
-========
 package site.codecrew.core.http;
->>>>>>>> feature/world:module/codecrew-core/src/main/java/site/codecrew/core/http/GlobalExceptionHandler.java
 
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
@@ -15,14 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-<<<<<<<< HEAD:module/codecrew-core/src/main/java/site/codecrew/core/exception/GlobalExceptionHandler.java
-import site.codecrew.core.http.ApiResponse;
-import site.codecrew.core.http.ErrorResponse;
-import site.codecrew.core.http.ExceptionResolver;
-========
 import site.codecrew.core.exception.CoreErrorCode;
 import site.codecrew.core.exception.CoreException;
->>>>>>>> feature/world:module/codecrew-core/src/main/java/site/codecrew/core/http/GlobalExceptionHandler.java
 
 @RequiredArgsConstructor
 @RestControllerAdvice
