@@ -9,6 +9,7 @@ val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
     api(libs.findLibrary("spring-boot-starter-json").get())
+    api(libs.findLibrary("spring-boot-starter-aop").get())
     api(libs.findLibrary("jackson-datatype-jsr310").get())
 }
 
