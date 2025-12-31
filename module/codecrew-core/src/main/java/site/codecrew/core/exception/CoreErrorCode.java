@@ -14,8 +14,9 @@ public enum CoreErrorCode implements ErrorCode {
     UNAUTHORIZED(401, "C006", "인증이 필요합니다.", WARN),
     FORBIDDEN(403, "C007", "접근 권한이 없습니다.", WARN),
 
-    CONFLICT(409, "C008", "이미 존재하거나 충돌되는 데이터가 있습니다.", INFO);
-
+    CONFLICT(409, "C008", "이미 존재하거나 충돌되는 데이터가 있습니다.", WARN),
+    LOCK_ACQUISITION_FAILED(423, "C009", "현재 요청을 처리 중입니다. 잠시 후 다시 시도해 주세요.", INFO),
+    ;
     private final int httpStatus;
     private final String code;
     private final String message;

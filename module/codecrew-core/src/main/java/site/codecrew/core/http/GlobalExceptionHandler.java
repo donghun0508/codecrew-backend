@@ -1,17 +1,18 @@
-package site.codecrew.core.exception;
+package site.codecrew.core.http;
 
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.UnexpectedTypeException;
 import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import site.codecrew.core.http.ApiResponse;
-import site.codecrew.core.http.ErrorResponse;
-import site.codecrew.core.http.ExceptionResolver;
+import site.codecrew.core.exception.CoreErrorCode;
+import site.codecrew.core.exception.CoreException;
 
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -32,7 +33,9 @@ public final class GlobalExceptionHandler {
         MethodArgumentNotValidException.class,
         ConstraintViolationException.class,
         MethodArgumentTypeMismatchException.class,
-        IllegalArgumentException.class
+        IllegalArgumentException.class,
+        UnexpectedTypeException.class,
+        HttpMessageNotReadableException.class
     })
     public ResponseEntity<ApiResponse<Void>> handleBadRequest(Exception ex) {
         return handle(CoreErrorCode.VALIDATION_ERROR, ex);
