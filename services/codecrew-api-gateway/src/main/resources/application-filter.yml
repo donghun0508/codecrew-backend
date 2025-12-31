@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    gateway:
-      server:
-        webflux:
-          default-filters:
-            - RequestLoggingFilter
-            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials

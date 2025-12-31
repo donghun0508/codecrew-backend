@@ -1,43 +1,32 @@
 package site.codecrew.core.exception;
 
+import lombok.Getter;
+import java.util.Arrays;
+
+@Getter
 public class CoreException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private final transient ErrorCode code;
-    private final String message;
-    private final Throwable cause;
+    private final String reason;
+    private final Object[] data;
 
     public CoreException(ErrorCode code) {
-        this(code, null, null);
+        this(code, code.message(), (Object[]) null);
     }
 
-    public CoreException(ErrorCode code, String message) {
-        this(code, message, null);
+    public CoreException(ErrorCode code, String reason, Object... data) {
+        super(String.format("[%s] %s", code.code(), reason));
+        this.code = code;
+        this.reason = reason;
+        this.data = data;
     }
 
     public CoreException(ErrorCode code, Throwable cause) {
-        this(code, null, cause);
-    }
-
-    public CoreException(ErrorCode code, String message, Throwable cause) {
-        super(message, cause);
+        super(code.message(), cause);
         this.code = code;
-        this.message = message;
-        this.cause = cause;
-    }
-
-    public ErrorCode getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    @Override
-    public Throwable getCause() {
-        return cause;
+        this.reason = code.message();
+        this.data = null;
     }
 }

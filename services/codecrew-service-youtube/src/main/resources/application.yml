@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:20030}
+  port: ${SERVER_PORT}
   shutdown: graceful
   tomcat:
     threads:
@@ -13,7 +13,7 @@ server:
 
 management:
   server:
-    port: ${MANAGEMENT_PORT:8081}
+    port: ${MANAGEMENT_PORT}
 
 spring:
   profiles:
