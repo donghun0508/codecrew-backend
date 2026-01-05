@@ -7,26 +7,30 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
-public abstract class AbstractRedisRepository<T> implements WorldRedisRepository<T> {
+public abstract class AbstractRedisRepository<D, C> implements WorldRedisRepository<D> {
 
     protected final StringRedisTemplate redisTemplate;
     protected final ObjectMapper objectMapper;
-    protected final Class<T> classType;
+    private final Class<C> cacheType;
 
-    protected AbstractRedisRepository(StringRedisTemplate redisTemplate, ObjectMapper objectMapper, Class<T> classType) {
+    protected AbstractRedisRepository(StringRedisTemplate redisTemplate, ObjectMapper objectMapper, Class<C> cacheType) {
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
-        this.classType = classType;
+        this.cacheType = cacheType;
     }
 
     protected abstract Duration getTtl();
 
-    @Override
-    public void set(String key, T data) {
-        String value = objectMapper.writeValueAsString(data);
-        Duration ttl = getTtl();
+    protected abstract C toCacheModel(D domain);
+    protected abstract D toDomainModel(C cacheModel);
 
-        if (ttl.isZero()) {
+    @Override
+    public void set(String key, D domain) {
+        C cacheModel = toCacheModel(domain);
+        String value = objectMapper.writeValueAsString(cacheModel);
+
+        Duration ttl = getTtl();
+        if (ttl == null || ttl.isZero()) {
             redisTemplate.opsForValue().set(key, value);
         } else {
             redisTemplate.opsForValue().set(key, value, ttl);
@@ -34,13 +38,14 @@ public abstract class AbstractRedisRepository<T> implements WorldRedisRepository
     }
 
     @Override
-    public Optional<T> find(String key) {
+    public Optional<D> find(String key) {
         String value = redisTemplate.opsForValue().get(key);
 
         if (value == null || value.isBlank()) {
             return Optional.empty();
         }
-        return Optional.of(objectMapper.readValue(value, classType));
+        C cacheModel = objectMapper.readValue(value, cacheType);
+        return Optional.ofNullable(toDomainModel(cacheModel));
     }
 
     @Override

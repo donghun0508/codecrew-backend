@@ -30,7 +30,7 @@ class RedisWorldServerCapacityRepository implements WorldServerCapacityRepositor
         }
 
         String rawValue = candidates.iterator().next().getValue();
-        return Optional.ofNullable(ServerNode.fromRawString(rawValue));
+        return Optional.of(ServerNode.fromRawString(rawValue));
     }
 
     @Override

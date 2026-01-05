@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface WorldServerNodeCacheRepository {
 
-    Optional<ServerNode> findByWorldCode(WorldCode worldCode);
+    Optional<ServerNode> findByWorldId(long worldId);
 
-    void save(WorldCode worldCode, ServerNode serverNode);
+    void save(long worldId, ServerNode serverNode);
 }
