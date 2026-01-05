@@ -35,7 +35,13 @@ spring:
       ddl-auto: none
     open-in-view: false
 
-
-agones:
-  namespace: ${AGONES_NAMESPACE}
-  fleet-name: ${AGONES_FLEET_NAME}
+app:
+  agones:
+    namespace: ${AGONES_NAMESPACE}
+    fleet-name: ${AGONES_FLEET_NAME}
+    ingress-domain: ${AGONES_INGRESS_DOMAIN}
+    use-ingress: ${AGONES_USE_INGRESS:false}
+  world:
+    cache:
+      enter-token: ${APP_WORLD_CACHE_ENTER_TOKEN}
+      server-heartbeat: ${APP_WORLD_CACHE_SERVER_HEARTBEAT}
