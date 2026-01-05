@@ -2,8 +2,8 @@ package site.codecrew.world.master.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import site.codecrew.world.master.domain.Avatar;
-import site.codecrew.world.master.domain.AvatarService;
+import site.codecrew.world.master.domain.Player;
+import site.codecrew.world.master.domain.PlayerService;
 import site.codecrew.world.master.domain.World;
 import site.codecrew.world.master.domain.WorldService;
 
@@ -11,12 +11,12 @@ import site.codecrew.world.master.domain.WorldService;
 @Component
 public class WorldPlayerAvatarRegisterUseCase {
 
-    private final AvatarService avatarService;
+    private final PlayerService playerService;
     private final WorldService worldService;
 
-    public void register(WorldPlayerAvatarRegisterCommand command) {
+    public void register(WorldPlayerPlayerRegisterCommand command) {
         World world = worldService.getByWorldCode(command.worldMember().world());
-        Avatar playerAvatar = Avatar.create(world, command);
-        avatarService.create(playerAvatar);
+        Player playerPlayer = Player.create(world, command);
+        playerService.create(playerPlayer);
     }
 }

@@ -9,7 +9,7 @@ import site.codecrew.core.exception.CoreErrorCode;
 import site.codecrew.core.exception.CoreException;
 
 @Embeddable
-public record PlayerId(@Column(name = "player_id", nullable = false, updatable = false) String value) {
+public record PlayerId(@Column(name = "public_player_id", nullable = false, updatable = false) String value) {
 
     public static PlayerId from(String issuer, String subject) {
         if (issuer == null || issuer.isBlank()) {
