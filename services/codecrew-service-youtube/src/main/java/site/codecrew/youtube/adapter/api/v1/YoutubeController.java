@@ -1,38 +1,36 @@
 package site.codecrew.youtube.adapter.api.v1;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import site.codecrew.core.http.ApiResponse;
+import site.codecrew.youtube.adapter.api.v1.request.RegisterYoutubeChannelRequest;
 import site.codecrew.youtube.application.YoutubeChannelUseCase;
+import site.codecrew.youtube.application.YoutubeVideoQuery;
 import site.codecrew.youtube.application.YoutubeVideoQueryUseCase;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/youtube")
 public class YoutubeController implements YoutubeV1ApiSpec {
 
     private final YoutubeChannelUseCase youtubeChannelUseCase;
     private final YoutubeVideoQueryUseCase youtubeVideoQueryUseCase;
 
     @Override
-    @PostMapping("/channels")
-    public void registerYoutubeChannel(@RequestBody RegisterYoutubeChannelRequest request) {
+    public void registerYoutubeChannel(RegisterYoutubeChannelRequest request) {
         youtubeChannelUseCase.register(request.handle());
     }
 
     @Override
-    @GetMapping("/videos")
     public ApiResponse<YoutubeVideoResponse> readAllInfiniteScroll(
-        @RequestParam(value = "lastVideoId", required = false)Long lastVideoId,
-        @RequestParam(value = "size", required = false) Long size
+        @RequestParam(value = "last_video_id", required = false) Long lastVideoId,
+        @RequestParam(value = "size", required = false) Long size,
+        @RequestParam(value = "search_query", required = false) String searchQuery
     ) {
         return ApiResponse.success(
-            YoutubeVideoResponse.from(youtubeVideoQueryUseCase.readAllInfiniteScroll(lastVideoId, size))
+            YoutubeVideoResponse.from(youtubeVideoQueryUseCase.readAllInfiniteScroll(
+                new YoutubeVideoQuery(lastVideoId, size, searchQuery)
+            ))
         );
     }
 }

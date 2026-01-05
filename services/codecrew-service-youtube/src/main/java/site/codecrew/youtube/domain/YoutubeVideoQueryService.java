@@ -13,11 +13,11 @@ public class YoutubeVideoQueryService {
     private final YoutubeVideoRepository youtubeVideoRepository;
 
     @Transactional(readOnly = true)
-    public YoutubeVideoResult readAllInfiniteScroll(Long lastVideoId, Long pageSize) {
+    public YoutubeVideoResult readAllInfiniteScroll(Long lastVideoId, Long pageSize, String searchQuery) {
         int size = (pageSize == null || pageSize <= 0) ? 20 : Math.toIntExact(pageSize);
         int fetchSize = size + 1;
 
-        List<Long> ids = youtubeVideoRepository.findPageIds(lastVideoId, fetchSize);
+        List<Long> ids = youtubeVideoRepository.findPageIds(lastVideoId, fetchSize, searchQuery);
         if (ids.isEmpty()) return YoutubeVideoResult.empty();
 
         boolean hasNext = ids.size() > size;

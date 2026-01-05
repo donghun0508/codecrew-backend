@@ -12,8 +12,8 @@ public class YoutubeVideoQueryUseCase {
 
     private final YoutubeVideoQueryService youtubeVideoQueryService;
 
-    public YoutubeVideoResult readAllInfiniteScroll(Long lastVideoId, Long pageSize) {
-        int size = (pageSize == null || pageSize <= 0) ? 20 : Math.toIntExact(pageSize);
-        return youtubeVideoQueryService.readAllInfiniteScroll(lastVideoId, (long) size);
+    public YoutubeVideoResult readAllInfiniteScroll(YoutubeVideoQuery query) {
+        int size = (query.size() == null || query.size() <= 0) ? 20 : Math.toIntExact(query.size());
+        return youtubeVideoQueryService.readAllInfiniteScroll(query.lastVideoId(), (long) size, query.searchQuery());
     }
 }

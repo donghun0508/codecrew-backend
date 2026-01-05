@@ -11,10 +11,20 @@ public interface YoutubeVideoRepository extends JpaRepository<YoutubeVideo, Long
         SELECT id
         FROM youtube_video
         WHERE (:lastId IS NULL OR id < :lastId)
+          AND (
+            :searchQuery IS NULL
+            OR :searchQuery = ''
+            OR title LIKE CONCAT('%', :searchQuery, '%')
+          )
         ORDER BY id DESC
         LIMIT :limit
-        """, nativeQuery = true)
-    List<Long> findPageIds(@Param("lastId") Long lastId, @Param("limit") int limit);
+    """, nativeQuery = true)
+    List<Long> findPageIds(
+        @Param("lastId") Long lastId,
+        @Param("limit") int limit,
+        @Param("searchQuery") String searchQuery
+    );
+
 
     @Query(value = """
         SELECT *
