@@ -15,6 +15,7 @@ jakarta-persistence = "3.2.0"
 jackson-bom = "3.0-rc5"
 classgraphVersion = "4.8.184"
 logstashLogbackEncoder = "9.0"
+p6spySpringBootStarter = "2.0.0"
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
@@ -35,6 +36,7 @@ spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-start
 springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapiStarterWebmvcUi"}
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+p6spy-spring-boot-starter = { module = "com.github.gavlyukovskiy:p6spy-spring-boot-starter", version.ref = "p6spySpringBootStarter" }
 spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
 spring-boot-starter-data-redisson = { module = "org.redisson:redisson-spring-boot-starter", version.ref = "springBoot" }
 spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive"}
@@ -81,12 +83,14 @@ spring-boot-web = [
 ]
 
 spring-boot-data-jpa = [
-    "spring-boot-starter-data-jpa"
+    "spring-boot-starter-data-jpa",
+    "p6spy-spring-boot-starter"
 ]
 
 spring-boot-data-redis = [
     "spring-boot-starter-data-redis",
-    "spring-boot-starter-data-redisson"
+    "spring-boot-starter-data-redisson",
+    "spring-boot-starter-data-redis-reactive"
 ]
 
 spring-boot-logging = [

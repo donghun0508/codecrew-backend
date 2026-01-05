@@ -1,7 +1,6 @@
 package site.codecrew.core.exception;
 
 import lombok.Getter;
-import java.util.Arrays;
 
 @Getter
 public class CoreException extends RuntimeException {
