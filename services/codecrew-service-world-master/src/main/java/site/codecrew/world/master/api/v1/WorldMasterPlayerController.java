@@ -7,7 +7,7 @@ import site.codecrew.starter.web.argumentresolver.AuthenticatedUser;
 import site.codecrew.world.master.api.v1.request.WorldEnterRequest;
 import site.codecrew.world.master.api.v1.request.WorldPlayerRegisterRequest;
 import site.codecrew.world.master.api.v1.response.WorldEnterResponse;
-import site.codecrew.world.master.application.WorldPlayerAvatarRegisterCommand;
+import site.codecrew.world.master.application.WorldPlayerPlayerRegisterCommand;
 import site.codecrew.world.master.application.WorldPlayerAvatarRegisterUseCase;
 import site.codecrew.world.master.application.WorldEntryUseCase;
 import site.codecrew.world.master.domain.WorldMember;
@@ -32,10 +32,10 @@ class WorldMasterPlayerController implements WorldMasterPlayerV1ApiSpec {
 
     @Override
     public ApiResponse<Void> register(AuthenticatedUser authenticatedUser, WorldPlayerRegisterRequest request) {
-        worldPlayerAvatarRegisterUseCase.register(new WorldPlayerAvatarRegisterCommand(
+        worldPlayerAvatarRegisterUseCase.register(new WorldPlayerPlayerRegisterCommand(
             WorldMember.of(request.worldCode(), authenticatedUser.issuer(), authenticatedUser.subject()),
-            request.avatarId(),
-            request.nickname()
+            request.avatar().toDomain(),
+            request.profile().toDomain()
         ));
         return ApiResponse.success();
     }
