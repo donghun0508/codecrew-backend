@@ -4,6 +4,8 @@ package site.codecrew.world.master.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import site.codecrew.world.master.domain.EnterToken;
+import site.codecrew.world.master.domain.PlayerId;
+import site.codecrew.world.master.domain.World;
 import site.codecrew.world.master.domain.WorldEnterTokenService;
 import site.codecrew.world.master.domain.WorldMember;
 
@@ -13,8 +15,12 @@ public class WorldEnterTokenIssuer {
 
     private final WorldEnterTokenService worldEnterTokenService;
 
-    public EnterToken issue(WorldMember worldMember) {
-        EnterToken newEnterToken = EnterToken.generate(worldMember);
+    public EnterToken issue(WorldEntryContext entryContext) {
+        return issue(entryContext.worldId(), entryContext.playerId());
+    }
+
+    public EnterToken issue(Long worldId, PlayerId playerId) {
+        EnterToken newEnterToken = EnterToken.generate(worldId, playerId);
         worldEnterTokenService.save(newEnterToken);
         return newEnterToken;
     }

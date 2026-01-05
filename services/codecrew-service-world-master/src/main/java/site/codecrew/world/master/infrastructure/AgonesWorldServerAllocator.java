@@ -11,7 +11,7 @@ import site.codecrew.world.master.domain.ServerNode;
 class AgonesWorldServerAllocator implements WorldServerAllocator {
 
     private final AgonesAllocationClient agonesAllocationClient;
-    @Value("${agones.fleet-name}")
+    @Value("${app.agones.fleet-name}")
     private String targetFleetName;
 
     @Override
@@ -27,7 +27,7 @@ class AgonesWorldServerAllocator implements WorldServerAllocator {
         int port
     ) {
         public ServerNode toServerNode() {
-            return new ServerNode(gameServerName, address, port);
+            return new ServerNode(gameServerName, address);
         }
     }
 }

@@ -10,11 +10,11 @@ public class WorldServerNodeService {
 
     private final WorldServerNodeCacheRepository repository;
 
-    public Optional<ServerNode> findByWorldCode(WorldCode worldCode) {
-        return repository.findByWorldCode(worldCode);
+    public Optional<ServerNode> findByWorldId(long worldId) {
+        return repository.findByWorldId(worldId);
     }
 
-    public void save(WorldCode worldCode, ServerNode newServerNode) {
-        repository.save(worldCode, newServerNode);
+    public void save(long worldId, ServerNode newServerNode) {
+        repository.save(worldId, newServerNode);
     }
 }

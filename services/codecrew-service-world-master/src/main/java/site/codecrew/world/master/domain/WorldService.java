@@ -17,13 +17,6 @@ public class WorldService {
         return fetchWorld(code);
     }
 
-    @Transactional(readOnly = true)
-    public World getAvailableWorld(WorldCode code) {
-        World world = fetchWorld(code);
-        world.validateEntry();
-        return world;
-    }
-
     private World fetchWorld(WorldCode code) {
         return worldRepository.findByCode(code)
             .orElseThrow(() -> new CoreException(WorldMasterErrorCode.WORLD_NOT_FOUND, "World not found", code));

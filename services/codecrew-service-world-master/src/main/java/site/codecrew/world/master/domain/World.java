@@ -47,9 +47,17 @@ public class World extends AggregateRoot {
     private ServiceState serviceState;
 
     public void validateEntry() {
+        validateAvailability();
+        validateCapacity();
+    }
+
+    public void validateAvailability() {
         if (!isOpen()) {
             throw new WorldMasterException(WorldMasterErrorCode.WORLD_NOT_AVAILABLE);
         }
+    }
+
+    public void validateCapacity() {
         if (!hasSpace()) {
             throw new WorldMasterException(WorldMasterErrorCode.WORLD_FULL);
         }

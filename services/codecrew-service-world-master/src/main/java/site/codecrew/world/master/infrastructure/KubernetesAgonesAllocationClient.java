@@ -20,7 +20,7 @@ class KubernetesAgonesAllocationClient implements AgonesAllocationClient {
 
     private final KubernetesClient client;
 
-    @Value("${agones.namespace}")
+    @Value("${app.agones.namespace}")
     private String namespace;
 
     KubernetesAgonesAllocationClient() {
