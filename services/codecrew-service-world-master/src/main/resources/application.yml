@@ -43,5 +43,5 @@ app:
     use-ingress: ${AGONES_USE_INGRESS:false}
   world:
     cache:
-      enter-token: ${APP_WORLD_CACHE_ENTER_TOKEN}
-      server-heartbeat: ${APP_WORLD_CACHE_SERVER_HEARTBEAT}
+      enter-token: ${WORLD_CACHE_ENTER_TOKEN}
+      server-heartbeat: ${WORLD_CACHE_SERVER_HEARTBEAT}
