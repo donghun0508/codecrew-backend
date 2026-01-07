@@ -17,9 +17,13 @@ public class WorldEnterTokenValidator {
     public Mono<EnterToken> validate(String token) {
         String key = "world:enter:token:" + token;
 
+//        return redisTemplate.opsForValue().get(key)
+//            .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid enter token")))
+//            .flatMap(json -> redisTemplate.delete(key)
+//                .then(deserialize(json)));
         return redisTemplate.opsForValue().get(key)
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid enter token")))
-            .flatMap(json -> redisTemplate.delete(key).then(deserialize(json)));
+            .flatMap(this::deserialize); // 또는 .flatMap(json -> deserialize(json))
     }
 
     private Mono<EnterToken> deserialize(String json) {
