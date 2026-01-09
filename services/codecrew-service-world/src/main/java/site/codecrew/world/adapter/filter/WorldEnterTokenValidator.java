@@ -1,4 +1,4 @@
-package site.codecrew.temp.adapter.filter;
+package site.codecrew.world.adapter.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

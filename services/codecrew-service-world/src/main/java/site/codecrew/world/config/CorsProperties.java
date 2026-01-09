@@ -1,4 +1,4 @@
-package site.codecrew.temp.config;
+package site.codecrew.world.config;
 
 import java.util.List;
 import lombok.Getter;

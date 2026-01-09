@@ -1,4 +1,4 @@
-package site.codecrew.temp.adapter.filter;
+package site.codecrew.world.adapter.filter;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;

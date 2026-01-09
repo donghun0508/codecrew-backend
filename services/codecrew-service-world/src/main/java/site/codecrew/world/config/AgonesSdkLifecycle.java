@@ -1,4 +1,4 @@
-package site.codecrew.temp.config;
+package site.codecrew.world.config;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -7,8 +7,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;

@@ -1,4 +1,4 @@
-package site.codecrew.temp.config;
+package site.codecrew.world.config;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
-import site.codecrew.temp.adapter.web.WorldEnterWebSocketHandler;
-import site.codecrew.temp.constant.EndpointConstants;
+import site.codecrew.world.adapter.web.WorldEnterWebSocketHandler;
 
 @Configuration
 @RequiredArgsConstructor

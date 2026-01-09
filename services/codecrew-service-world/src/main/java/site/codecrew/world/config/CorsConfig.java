@@ -1,4 +1,4 @@
-package site.codecrew.temp.config;
+package site.codecrew.world.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
