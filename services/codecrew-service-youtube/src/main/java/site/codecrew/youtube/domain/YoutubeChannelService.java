@@ -1,11 +1,8 @@
 package site.codecrew.youtube.domain;
 
-import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import site.codecrew.core.exception.CoreErrorCode;
 import site.codecrew.core.exception.CoreException;

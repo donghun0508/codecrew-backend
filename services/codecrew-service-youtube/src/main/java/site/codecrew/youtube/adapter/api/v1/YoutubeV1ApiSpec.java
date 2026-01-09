@@ -25,6 +25,13 @@ public interface YoutubeV1ApiSpec {
     );
 
     @Operation(
+        summary = "유튜브 채널 동기화",
+        description = "유튜브 채널을 동기화합니다."
+    )
+    @PostMapping("/sync-all")
+    void syncAll();
+
+    @Operation(
         summary = "유튜브 영상 목록 조회(무한 스크롤)",
         description = "lastVideoId 기준으로 다음 페이지를 조회합니다. size 미지정 시 기본 20개입니다."
     )

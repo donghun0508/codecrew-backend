@@ -1,53 +1,41 @@
 package site.codecrew.youtube.application;
 
-import java.time.Instant;
-import java.util.Iterator;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import site.codecrew.core.exception.CoreErrorCode;
-import site.codecrew.core.exception.CoreException;
 import site.codecrew.youtube.domain.YoutubeChannel;
 import site.codecrew.youtube.domain.YoutubeChannelService;
-import site.codecrew.youtube.domain.YoutubeVideoBatch;
-import site.codecrew.youtube.domain.YoutubeVideoService;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class YoutubeVideoSyncUseCase {
 
-    private final YoutubeChannelVideoSearcher youtubeChannelVideoSearcher;
-    private final YoutubeVideoService youtubeVideoService;
     private final YoutubeChannelService youtubeChannelService;
+    private final YoutubeChannelVideoSyncer youtubeChannelVideoSyncer;
 
     public void sync(String channelId) {
-        try {
-            YoutubeChannel channel = youtubeChannelService.findByChannelId(channelId);
+        YoutubeChannel channel = youtubeChannelService.findByChannelId(channelId);
 
-            Instant baselineCursor = channel.lastSeenVideoPublishedAtOrEpoch();
-            Iterator<YoutubeVideoBatch> iterator = youtubeChannelVideoSearcher.iterateBatches(channel).iterator();
+        if (youtubeChannelVideoSyncer.execute(channel)) {
+            youtubeChannelService.save(channel);
+        }
+    }
 
-            Instant maxSeen = null;
+    public void syncAll() {
+        List<YoutubeChannel> channels = youtubeChannelService.findAll();
 
-            while (iterator.hasNext()) {
-                YoutubeVideoBatch batch = iterator.next();
+        for (YoutubeChannel channel : channels) {
+            try {
+                boolean isUpdated = youtubeChannelVideoSyncer.execute(channel);
 
-                batch.filter(baselineCursor);
-                if (batch.isEndFor()) break;
-
-                youtubeVideoService.saveAll(batch.videos());
-
-                Instant batchMax = batch.maxPublishedAt();
-                if (batchMax != null && (maxSeen == null || batchMax.isAfter(maxSeen))) {
-                    maxSeen = batchMax;
+                if (isUpdated) {
+                    youtubeChannelService.save(channel);
                 }
+            } catch (Exception e) {
+                log.error("동기화 실패: channelId={}", channel.getChannelId(), e);
             }
-
-            if (maxSeen != null) {
-                channel.updatePublishedAt(maxSeen);
-                youtubeChannelService.save(channel);
-            }
-        } catch (Exception e) {
-            throw new CoreException(CoreErrorCode.INTERNAL_ERROR, "유튜브 영상 동기화에 실패했습니다. channelId=" + channelId, e);
         }
     }
 }
