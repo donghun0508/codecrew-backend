@@ -11,14 +11,15 @@ public record WorldPlayerRegisterRequest(
     @NotNull ProfileSpec profile
 ) {
     public record AvatarSpec(
-        @NotNull Integer skinId,
+        @NotNull Integer hairColorId,
         @NotNull Integer hairId,
         @NotNull Integer outfitId,
+        @NotNull Integer skinId,
         @NotNull Integer accessoryId
     ) {
 
         public Avatar toDomain() {
-            return Avatar.of(skinId, hairId, outfitId, accessoryId);
+            return Avatar.of(skinId, hairId, hairColorId, outfitId, accessoryId);
         }
     }
 

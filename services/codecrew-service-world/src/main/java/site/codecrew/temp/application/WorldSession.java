@@ -1,14 +1,14 @@
 package site.codecrew.world.application;
 
 import org.springframework.web.reactive.socket.WebSocketSession;
-import site.codecrew.world.adapter.filter.EnterToken;
+import site.codecrew.world.adapter.filter.PlayerPrincipal;
 
 public record WorldSession(
-    EnterToken enterToken,
+    PlayerPrincipal playerPrincipal,
     WebSocketSession webSocketSession
 ) {
 
-    public static WorldSession of(EnterToken token, WebSocketSession session) {
+    public static WorldSession of(PlayerPrincipal token, WebSocketSession session) {
         return new WorldSession(token, session);
     }
 
@@ -17,10 +17,10 @@ public record WorldSession(
     }
 
     public long worldId() {
-        return enterToken.worldId();
+        return playerPrincipal.worldId();
     }
 
-    public EnterToken credentials() {
-        return enterToken;
+    public PlayerPrincipal credentials() {
+        return playerPrincipal;
     }
 }

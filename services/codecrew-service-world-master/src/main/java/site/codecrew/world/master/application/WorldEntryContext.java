@@ -1,7 +1,7 @@
 package site.codecrew.world.master.application;
 
 import site.codecrew.world.master.domain.Player;
-import site.codecrew.world.master.domain.PlayerId;
+import site.codecrew.world.master.domain.IdentityHash;
 import site.codecrew.world.master.domain.World;
 
 public record WorldEntryContext(
@@ -14,7 +14,7 @@ public record WorldEntryContext(
     }
 
 
-    public PlayerId playerId() {
-        return player.getPlayerId();
+    public IdentityHash playerId() {
+        return player.getIdentityHash();
     }
 }

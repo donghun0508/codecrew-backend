@@ -9,9 +9,9 @@ import site.codecrew.core.exception.CoreErrorCode;
 import site.codecrew.core.exception.CoreException;
 
 @Embeddable
-public record PlayerId(@Column(name = "public_player_id", nullable = false, updatable = false) String value) {
+public record IdentityHash(@Column(name = "identity_hash", nullable = false, updatable = false) String value) {
 
-    public static PlayerId from(String issuer, String subject) {
+    public static IdentityHash from(String issuer, String subject) {
         if (issuer == null || issuer.isBlank()) {
             throw new IllegalArgumentException("Issuer cannot be null or empty");
         }
@@ -19,7 +19,7 @@ public record PlayerId(@Column(name = "public_player_id", nullable = false, upda
             throw new IllegalArgumentException("Subject cannot be null or empty");
         }
         String rawKey = issuer + ":" + subject;
-        return new PlayerId(generateHash(rawKey));
+        return new IdentityHash(generateHash(rawKey));
     }
 
     private static String generateHash(String input) {

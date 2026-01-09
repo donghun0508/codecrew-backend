@@ -1,4 +1,4 @@
-package site.codecrew.world.config;
+package site.codecrew.temp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +9,10 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
-import site.codecrew.world.adapter.filter.EnterTokenAuthenticationEntryPoint;
-import site.codecrew.world.adapter.filter.WorldEnterTokenAuthenticationConverter;
-import site.codecrew.world.adapter.filter.WorldEnterTokenAuthenticationManager;
-import site.codecrew.world.constant.EndpointConstants;
+import site.codecrew.temp.adapter.filter.EnterTokenAuthenticationEntryPoint;
+import site.codecrew.temp.adapter.filter.WorldEnterTokenAuthenticationConverter;
+import site.codecrew.temp.adapter.filter.WorldEnterTokenAuthenticationManager;
+import site.codecrew.temp.constant.EndpointConstants;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebFluxSecurity

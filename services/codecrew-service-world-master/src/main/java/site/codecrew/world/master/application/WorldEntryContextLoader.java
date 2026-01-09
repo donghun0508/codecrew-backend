@@ -17,7 +17,7 @@ public class WorldEntryContextLoader {
 
     public WorldEntryContext load(WorldMember member) {
         World world = worldService.getByWorldCode(member.world());
-        Player player = playerService.getAvatar(member.playerId());
+        Player player = playerService.getAvatar(member.identityHash());
         return new WorldEntryContext(world, player);
     }
 }

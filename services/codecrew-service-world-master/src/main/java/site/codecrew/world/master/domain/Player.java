@@ -31,7 +31,7 @@ public class Player extends AggregateRoot {
     private long worldId;
 
     @Embedded
-    private PlayerId playerId;
+    private IdentityHash identityHash;
 
     @Embedded
     private Avatar avatar;
@@ -47,7 +47,7 @@ public class Player extends AggregateRoot {
         world.validateAvailability();
 
         Player player = new Player();
-        player.playerId = spec.playerId();
+        player.identityHash = spec.playerId();
         player.worldId = world.getId();
         player.avatar = spec.avatar();
         player.location = Location.initialize();

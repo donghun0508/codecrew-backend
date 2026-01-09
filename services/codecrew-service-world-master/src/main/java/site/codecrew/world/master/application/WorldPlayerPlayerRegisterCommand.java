@@ -2,7 +2,7 @@ package site.codecrew.world.master.application;
 
 import site.codecrew.world.master.domain.Avatar;
 import site.codecrew.world.master.domain.PlayerAttribute;
-import site.codecrew.world.master.domain.PlayerId;
+import site.codecrew.world.master.domain.IdentityHash;
 import site.codecrew.world.master.domain.WorldMember;
 import site.codecrew.world.master.domain.spec.CreatePlayerSpec;
 
@@ -13,8 +13,8 @@ public record WorldPlayerPlayerRegisterCommand(
 ) implements CreatePlayerSpec {
 
     @Override
-    public PlayerId playerId() {
-        return worldMember.playerId();
+    public IdentityHash playerId() {
+        return worldMember.identityHash();
     }
 
     @Override

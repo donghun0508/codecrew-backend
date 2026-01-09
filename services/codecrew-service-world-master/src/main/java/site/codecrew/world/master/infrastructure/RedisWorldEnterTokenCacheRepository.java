@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 import site.codecrew.world.master.domain.EnterToken;
-import site.codecrew.world.master.domain.PlayerId;
-import site.codecrew.world.master.domain.WorldCode;
 import site.codecrew.world.master.domain.WorldEnterTokenCacheRepository;
-import site.codecrew.world.master.domain.WorldMember;
 import tools.jackson.databind.ObjectMapper;
 
 @Repository
@@ -51,7 +48,7 @@ public class RedisWorldEnterTokenCacheRepository
         public static EnterTokenCacheDto from(EnterToken domain) {
             return new EnterTokenCacheDto(
                 domain.worldId(),
-                domain.playerId().value()
+                domain.identityHash().value()
             );
         }
     }

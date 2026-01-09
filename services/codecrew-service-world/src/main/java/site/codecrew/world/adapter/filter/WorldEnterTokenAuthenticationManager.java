@@ -1,4 +1,4 @@
-package site.codecrew.world.adapter.filter;
+package site.codecrew.temp.adapter.filter;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class WorldEnterTokenAuthenticationManager implements ReactiveAuthenticat
         String rawToken = (String) authentication.getPrincipal();
         return tokenValidator.validate(rawToken)
             .map(enterToken -> new UsernamePasswordAuthenticationToken(
-                enterToken, // [중요] 나중에 세션에서 꺼내 쓸 진짜 유저 정보 (Principal)
-                null,       // 자격 증명(비번)은 이미 토큰으로 증명됨
+                enterToken,
+                null,
                 List.of(new SimpleGrantedAuthority("ROLE_USER"))
             ));
     }

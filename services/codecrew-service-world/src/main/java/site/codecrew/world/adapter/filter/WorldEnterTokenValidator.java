@@ -1,4 +1,4 @@
-package site.codecrew.world.adapter.filter;
+package site.codecrew.temp.adapter.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,20 +16,20 @@ public class WorldEnterTokenValidator {
     private final ReactiveStringRedisTemplate redisTemplate;
     private final ObjectMapper objectMapper;
 
-    public Mono<EnterToken> validate(String token) {
+    public Mono<PlayerPrincipal> validate(String token) {
         log.info("Validating enter token: {}", token);
         String key = "world:enter:token:" + token;
 
-//        return redisTemplate.opsForValue().get(key)
-//            .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid enter token")))
-//            .flatMap(json -> redisTemplate.delete(key)
-//                .then(deserialize(json)));
         return redisTemplate.opsForValue().get(key)
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid enter token")))
-            .flatMap(this::deserialize); // 또는 .flatMap(json -> deserialize(json))
+            .flatMap(json -> redisTemplate.delete(key).then(deserialize(json)));
     }
 
-    private Mono<EnterToken> deserialize(String json) {
-        return Mono.just(objectMapper.readValue(json, EnterToken.class));
+    private Mono<PlayerPrincipal> deserialize(String json) {
+        return Mono.just(objectMapper.readValue(json, PlayerPrincipal.class));
     }
 }
+
+//        return redisTemplate.opsForValue().get(key)
+//            .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid enter token")))
+//            .flatMap(this::deserialize);

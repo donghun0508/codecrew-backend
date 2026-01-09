@@ -1,4 +1,4 @@
-package site.codecrew.world.config;
+package site.codecrew.temp.config;
 
 import java.net.URI;
 import java.net.http.HttpClient;

@@ -14,20 +14,20 @@ public class PlayerService {
     private final PlayerRepository playerRepository;
 
     @Transactional(readOnly = true)
-    public Player getAvatar(PlayerId playerId) {
-        return playerRepository.findByPlayerId(playerId)
+    public Player getAvatar(IdentityHash identityHash) {
+        return playerRepository.findByIdentityHash(identityHash)
             .orElseThrow(
-                () -> new CoreException(CoreErrorCode.NOT_FOUND, "Avatar not found" + playerId));
+                () -> new CoreException(CoreErrorCode.NOT_FOUND, "Avatar not found" + identityHash));
     }
 
-    public boolean existsByWorldIdAndPlayerId(Long worldId, PlayerId playerId) {
-        return playerRepository.existsByWorldIdAndPlayerId(worldId, playerId);
+    public boolean existsByWorldIdAndIdentityHash(Long worldId, IdentityHash identityHash) {
+        return playerRepository.existsByWorldIdAndIdentityHash(worldId, identityHash);
     }
 
-    @DistributedLock(key = "'world:' + #player.worldId + ':playerId:' + #player.playerId.value()")
+    @DistributedLock(key = "'world:' + #player.worldId + ':playerId:' + #player.identityHash.value()")
     public Player create(Player player) {
-        if (existsByWorldIdAndPlayerId(player.worldId(), player.getPlayerId())) {
-            throw new CoreException(CoreErrorCode.CONFLICT, "Player already exists", player.getPlayerId());
+        if (existsByWorldIdAndIdentityHash(player.worldId(), player.getIdentityHash())) {
+            throw new CoreException(CoreErrorCode.CONFLICT, "Player already exists", player.getIdentityHash());
         }
 
         return playerRepository.save(player);
