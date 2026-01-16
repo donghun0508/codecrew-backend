@@ -8,14 +8,22 @@ public abstract class DomainEvent {
     private final Instant occurredAt;
     private final String aggregateType;
     private final String aggregateId;
-    private final int version;
+    private final String version;
 
-    protected DomainEvent(String aggregateType, String aggregateId, int version) {
+    protected DomainEvent(String aggregateType, String aggregateId, String version) {
         this.eventId = UUID.randomUUID();
         this.occurredAt = Instant.now();
         this.aggregateType = aggregateType;
         this.aggregateId = aggregateId;
         this.version = version;
+    }
+
+    protected DomainEvent() {
+        this.eventId = UUID.randomUUID();
+        this.occurredAt = Instant.now();
+        this.aggregateType = null;
+        this.aggregateId = null;
+        this.version = null;
     }
 
 }
