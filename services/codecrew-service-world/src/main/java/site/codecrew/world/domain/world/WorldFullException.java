@@ -1,4 +1,4 @@
-package site.codecrew.world.domain.exception;
+package site.codecrew.world.temp.domain.exception;
 
 public class WorldFullException extends WorldException {
 

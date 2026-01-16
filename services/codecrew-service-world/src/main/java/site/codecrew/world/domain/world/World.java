@@ -1,4 +1,4 @@
-package site.codecrew.world.domain;
+package site.codecrew.world.temp.domain;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -24,6 +24,15 @@ public class World {
     @Column("max_capacity")
     private int maxCapacity;
 
+    @Column("name")
+    private String name;
+
+    @Column("host")
+    private String host;
+
+    @Column("description")
+    private String description;
+
     @Transient
     private int currentCapacity;
 
@@ -32,12 +41,10 @@ public class World {
     }
 
     public void increateCurrentPlayer() {
-        currentCapacity++;
+        this.currentCapacity++;
     }
 
     public void decrementCurrentPlayer() {
-        currentCapacity--;
+        this.currentCapacity--;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package site.codecrew.world.domain;
+package site.codecrew.world.temp.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,9 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.Table;
-import site.codecrew.world.domain.routing.MapNodeId;
-import site.codecrew.world.domain.routing.NodeId;
-import site.codecrew.world.domain.routing.RoomNodeId;
+import site.codecrew.world.temp.domain.routing.MapNodeId;
+import site.codecrew.world.temp.domain.routing.NodeId;
+import site.codecrew.world.temp.domain.routing.RoomNodeId;
 
 @Getter
 @Table("player")

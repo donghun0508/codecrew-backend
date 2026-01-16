@@ -8,4 +8,5 @@ val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
     api(project(":module:codecrew-data-redis"))
+    api(project(":module:codecrew-data-r2dbc"))
 }

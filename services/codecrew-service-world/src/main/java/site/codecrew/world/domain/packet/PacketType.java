@@ -1,4 +1,4 @@
-package site.codecrew.world.domain.packet;
+package site.codecrew.world.temp.domain.packet;
 
 public enum PacketType {
 
@@ -16,7 +16,16 @@ public enum PacketType {
     C_NET_CHAT_SEND_REQ,            // (C->S) 채팅 전송
     C_NET_CHAT_MESSAGE_NOTIFY,      // (S->C) 채팅 메시지 전파 (broadcast)
 
-    // [4] 시스템 (System)
+    // [4] 미션 (Mission)
+    C_NET_MISSION_REGISTER_REQ,     // (C->S) 미션 등록 요청
+    C_NET_MISSION_DELETE_REQ,       // (C->S) 미션 삭제 요청
+    C_NET_MISSION_STATUS_CHANGE_REQ,        // (C->S) 미션 시작 요청
+
+    C_NET_MISSION_REGISTERED_NOTIFY, // (S->C) 미션 등록 알림 (broadcast)
+    C_NET_MISSION_DELETED_NOTIFY,   // (S->C) 미션 삭제 알림 (broadcast)
+    C_NET_MISSION_STATUS_CHANGED_NOTIFY,  // (S->C) 미션 시작 알림 (broadcast)
+
+    // [5] 시스템 (System)
     C_NET_SYSTEM_ALERT_NOTIFY,      // (S->C) 시스템 알림(경고/에러 포함)
     C_NET_SYSTEM_ERROR_NOTIFY       // (S->C) 에러 알림
 }

@@ -1,4 +1,4 @@
-package site.codecrew.world.domain;
+package site.codecrew.world.temp.domain;
 
 import org.springframework.data.relational.core.mapping.Column;
 
