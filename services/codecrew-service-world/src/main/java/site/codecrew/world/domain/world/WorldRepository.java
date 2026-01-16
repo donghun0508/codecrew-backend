@@ -1,7 +1,6 @@
-package site.codecrew.world.temp.domain.repository;
+package site.codecrew.world.domain.world;
 
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
-import site.codecrew.world.temp.domain.World;
 
 public interface WorldRepository extends R2dbcRepository<World, Long> {
 

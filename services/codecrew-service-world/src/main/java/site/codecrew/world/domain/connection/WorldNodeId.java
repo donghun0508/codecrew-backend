@@ -1,6 +1,5 @@
-package site.codecrew.world.domain.network;
+package site.codecrew.world.domain.connection;
 
-import site.codecrew.world.temp.domain.routing.NodeType;
 
 public record WorldNodeId(long worldId) implements NodeId {
 
@@ -9,4 +8,12 @@ public record WorldNodeId(long worldId) implements NodeId {
     }
 
     @Override public NodeType type() { return NodeType.WORLD; }
+
+    @Override
+    public boolean belongsTo(NodeId parent) {
+        if (parent instanceof WorldNodeId(long id)) {
+            return this.worldId == id;
+        }
+        return false;
+    }
 }

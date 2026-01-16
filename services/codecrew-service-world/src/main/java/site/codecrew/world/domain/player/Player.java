@@ -1,22 +1,22 @@
-package site.codecrew.world.temp.domain;
+package site.codecrew.world.domain.player;
 
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.Table;
-import site.codecrew.world.temp.domain.routing.MapNodeId;
-import site.codecrew.world.temp.domain.routing.NodeId;
-import site.codecrew.world.temp.domain.routing.RoomNodeId;
+import site.codecrew.r2dbc.jpa.AggregateRoot;
+import site.codecrew.world.domain.connection.MapNodeId;
+import site.codecrew.world.domain.connection.NodeId;
+import site.codecrew.world.domain.connection.RoomNodeId;
 
 @Getter
 @Table("player")
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Player {
+public class Player extends AggregateRoot {
 
     @Id
     @Column("player_id")
@@ -41,6 +41,10 @@ public class Player {
 
     }
 
+    public void updateCoordinate(int x, int y) {
+        this.coordinate = new Coordinate(x, y);
+    }
+
     public Long id() {
         return id;
     }
@@ -60,4 +64,26 @@ public class Player {
         return new RoomNodeId(worldId, mapId, roomId);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Player player = (Player) o;
+        return Objects.equals(getIdentityHash(), player.getIdentityHash());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getIdentityHash());
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+            "identityHash='" + identityHash + '\'' +
+            ", id=" + id +
+            '}';
+    }
 }

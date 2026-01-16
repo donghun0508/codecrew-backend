@@ -1,4 +1,4 @@
-package site.codecrew.world.temp.domain.exception;
+package site.codecrew.world.domain;
 
 import site.codecrew.core.exception.CoreException;
 import site.codecrew.core.exception.ErrorCode;
