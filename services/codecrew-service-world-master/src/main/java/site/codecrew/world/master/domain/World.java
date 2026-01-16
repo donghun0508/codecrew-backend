@@ -46,6 +46,12 @@ public class World extends AggregateRoot {
     @Column(name = "service_state", nullable = false, length = 20)
     private ServiceState serviceState;
 
+    @Column(name = "host", nullable = false, length = 100)
+    private String host;
+
+    @Column(name = "description", nullable = false, length = 255)
+    private String description;
+
     public void validateEntry() {
         validateAvailability();
         validateCapacity();

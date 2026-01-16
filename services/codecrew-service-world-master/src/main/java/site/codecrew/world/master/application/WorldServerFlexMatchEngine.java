@@ -64,7 +64,6 @@ public class WorldServerFlexMatchEngine {
         } else {
             connectionUrl = ingressDomain;
         }
-
         return new ServerNode(serverNode.id(), connectionUrl);
     }
 }
