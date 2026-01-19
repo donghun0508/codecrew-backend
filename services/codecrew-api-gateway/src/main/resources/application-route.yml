@@ -44,17 +44,3 @@ spring:
               predicates:
                 - Path=/api/v1/world-masters/**
               filters: *securedFilters
-
-
-
-#            - id: world-websocket
-#              uri: ${WORLD_SERVICE_WS_URL:ws://localhost:20040}
-#              predicates:
-#                - Path=/api/v1/ws/worlds/**, /api/v1/ws/worlds
-#              filters: *securedFilters
-#
-#            - id: world-players
-#              uri: ${WORLD_SERVICE_URL:http://localhost:20040}
-#              predicates:
-#                - Path=/api/v1/players/**
-#              filters: *securedFilters
