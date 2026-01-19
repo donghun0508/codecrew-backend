@@ -1,12 +1,12 @@
-package site.codecrew.world.master.api.v1;
+package site.codecrew.world.master.adapter.web.api.v1;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import site.codecrew.core.http.ApiResponse;
 import site.codecrew.starter.web.argumentresolver.AuthenticatedUser;
-import site.codecrew.world.master.api.v1.request.WorldEnterRequest;
-import site.codecrew.world.master.api.v1.request.WorldPlayerRegisterRequest;
-import site.codecrew.world.master.api.v1.response.WorldEnterResponse;
+import site.codecrew.world.master.adapter.web.api.v1.request.WorldEnterRequest;
+import site.codecrew.world.master.adapter.web.api.v1.request.WorldPlayerRegisterRequest;
+import site.codecrew.world.master.adapter.web.api.v1.response.WorldEnterResponse;
 import site.codecrew.world.master.application.WorldPlayerPlayerRegisterCommand;
 import site.codecrew.world.master.application.WorldPlayerAvatarRegisterUseCase;
 import site.codecrew.world.master.application.WorldEntryUseCase;

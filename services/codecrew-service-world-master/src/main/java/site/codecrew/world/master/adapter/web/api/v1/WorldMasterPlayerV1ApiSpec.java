@@ -1,4 +1,4 @@
-package site.codecrew.world.master.api.v1;
+package site.codecrew.world.master.adapter.web.api.v1;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import site.codecrew.core.http.ApiResponse;
 import site.codecrew.starter.web.argumentresolver.AuthenticatedUser;
 import site.codecrew.starter.web.argumentresolver.AuthenticatedUserPrincipal;
-import site.codecrew.world.master.api.v1.request.WorldEnterRequest;
-import site.codecrew.world.master.api.v1.request.WorldPlayerRegisterRequest;
-import site.codecrew.world.master.api.v1.response.WorldEnterResponse;
+import site.codecrew.world.master.adapter.web.api.v1.request.WorldEnterRequest;
+import site.codecrew.world.master.adapter.web.api.v1.request.WorldPlayerRegisterRequest;
+import site.codecrew.world.master.adapter.web.api.v1.response.WorldEnterResponse;
 
 @RequestMapping("/api/v1/world-masters")
 @Tag(name = "World Master Player V1 Api", description = "월드 마스터 관련 API")

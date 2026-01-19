@@ -1,4 +1,4 @@
-package site.codecrew.world.master.api.v1.response;
+package site.codecrew.world.master.adapter.web.api.v1.response;
 
 import site.codecrew.world.master.application.entry.WorldEnterResult;
 

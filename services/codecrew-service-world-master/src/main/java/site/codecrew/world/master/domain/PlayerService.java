@@ -20,6 +20,10 @@ public class PlayerService {
                 () -> new CoreException(CoreErrorCode.NOT_FOUND, "Avatar not found" + identityHash));
     }
 
+    public void deleteByIdentityHash(IdentityHash identityHash) {
+        playerRepository.deleteByIdentityHash(identityHash);
+    }
+
     public boolean existsByWorldIdAndIdentityHash(Long worldId, IdentityHash identityHash) {
         return playerRepository.existsByWorldIdAndIdentityHash(worldId, identityHash);
     }
@@ -31,5 +35,9 @@ public class PlayerService {
         }
 
         return playerRepository.save(player);
+    }
+
+    public void delete(Player player) {
+        playerRepository.delete(player);
     }
 }

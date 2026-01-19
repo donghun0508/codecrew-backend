@@ -25,6 +25,7 @@ spring:
       - logging.yml
       - monitoring.yml
       - redis.yml
+      - kafka.yml
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -34,8 +35,15 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
+  kafka:
+    consumer:
+      group-id: world-service-group
 
 app:
+  kafka:
+    topics:
+      member-events: outbox.member
+
   agones:
     namespace: ${AGONES_NAMESPACE}
     fleet-name: ${AGONES_FLEET_NAME}
@@ -45,3 +53,4 @@ app:
     cache:
       enter-token: ${WORLD_CACHE_ENTER_TOKEN}
       server-heartbeat: ${WORLD_CACHE_SERVER_HEARTBEAT}
+
