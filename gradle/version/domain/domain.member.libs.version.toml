@@ -1,24 +1,7 @@
 [versions]
-googleApiVersion = "2.8.1"
-googleJackson2Version = "2.0.2"
-jwtVersion = "0.13.0"
+keyCloakAdminClientVersion = "26.0.8"
 
 [libraries]
-google-api-client = { group = "com.google.api-client", name = "google-api-client", version.ref = "googleApiVersion" }
-google-http-client-jackson2 = { group = "com.google.http-client", name = "google-http-client-jackson2", version.ref = "googleJackson2Version" }
-
-json-web-token-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwtVersion" }
-json-web-token-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwtVersion" }
-json-web-token-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwtVersion" }
+keycloak-admin-client = { module = "org.keycloak:keycloak-admin-client", version.ref = "keyCloakAdminClientVersion" }
 
 [bundles]
-google-auth = [
-    "google-api-client",
-    "google-http-client-jackson2"
-]
-
-json-web-token = [
-    "json-web-token-api",
-    "json-web-token-impl",
-    "json-web-token-jackson"
-]

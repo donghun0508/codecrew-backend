@@ -15,4 +15,5 @@ dependencies {
     api(project(":module:codecrew-starter-web"))
     api(project(":module:codecrew-data-jpa"))
     api(project(":module:codecrew-data-redis"))
+    api(project(":module:codecrew-kafka"))
 }
