@@ -26,6 +26,7 @@ spring:
       - monitoring.yml
       - redis.yml
       - jpa.yml
+      - kafka.yml
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -44,3 +45,14 @@ oauth:
     endpoints:
       token: https://nid.naver.com/oauth2.0/token
       user-info: https://openapi.naver.com/v1/nid/me
+
+keycloak:
+  admin:
+    server-url: ${KEYCLOAK_ADMIN_SERVER_URL}
+    realm: ${KEYCLOAK_ADMIN_REALM}
+    client-id: ${KEYCLOAK_ADMIN_CLIENT_ID}
+    grant-type: ${KEYCLOAK_ADMIN_GRANT_TYPE}
+    username: ${KEYCLOAK_ADMIN_USERNAME}
+    password: ${KEYCLOAK_ADMIN_PASSWORD}
+  codecrew:
+    realm: ${KEYCLOAK_CODECREW_REALM}

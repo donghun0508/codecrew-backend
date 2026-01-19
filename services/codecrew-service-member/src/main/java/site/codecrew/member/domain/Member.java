@@ -12,8 +12,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import site.codecrew.core.idgenerator.IdGenerator;
-import site.codecrew.jpa.BaseEntity;
+import site.codecrew.jpa.AggregateRoot;
+import site.codecrew.jpa.EntityStatus;
+import site.codecrew.member.domain.MemberEvent.MemberDeletedEvent;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Table(
@@ -25,7 +28,7 @@ import site.codecrew.jpa.BaseEntity;
     }
 )
 @NullMarked
-public class Member extends BaseEntity {
+public class Member extends AggregateRoot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,16 +44,36 @@ public class Member extends BaseEntity {
     @Embedded
     private Email email;
 
-    @Column(name = "nickname", nullable = false, length = 50)
-    private String nickname;
+    @Embedded
+    private Nickname nickname;
 
-    public static Member create(IssuerSubjectIdentity issuerSubjectIdentity, SignupAttributes signupAttributes, IdGenerator idGenerator) {
+    public static Member create(IssuerSubjectIdentity issuerSubjectIdentity,
+        SignupAttributes signupAttributes, IdGenerator idGenerator) {
         Member member = new Member();
         member.issuerSubjectIdentity = issuerSubjectIdentity;
         member.publicId = idGenerator.nextId();
         member.email = Email.of(signupAttributes.emailAddress());
-        member.nickname = signupAttributes.nickname();
+        member.nickname = new Nickname(signupAttributes.nickname());
         return member;
+    }
+
+    @Override
+    public void delete() {
+        if (getStatus() == EntityStatus.DELETED) {
+            return;
+        }
+        super.delete();
+
+        long timestamp = System.currentTimeMillis();
+        this.nickname = this.nickname.markDeleted(timestamp);
+        this.email = this.email.markDeleted(timestamp);
+        IssuerSubjectIdentity before = this.issuerSubjectIdentity;
+        this.issuerSubjectIdentity = this.issuerSubjectIdentity.markDeleted(timestamp);
+        this.registerEvent(new MemberDeletedEvent(this.id, before));
+    }
+
+    public void updateNickname(Nickname nickname) {
+        this.nickname = nickname;
     }
 
     public Long publicId() {
@@ -61,7 +84,7 @@ public class Member extends BaseEntity {
         return email.address();
     }
 
-    public String nickname() {
+    public Nickname nickname() {
         return nickname;
     }
 }
