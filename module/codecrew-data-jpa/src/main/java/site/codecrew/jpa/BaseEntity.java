@@ -54,6 +54,7 @@ public abstract class BaseEntity {
     public void delete() {
         if (this.deletedAt == null) {
             this.deletedAt = ZonedDateTime.now();
+            this.status = EntityStatus.DELETED;
         }
     }
 
@@ -63,6 +64,7 @@ public abstract class BaseEntity {
     public void restore() {
         if (this.deletedAt != null) {
             this.deletedAt = null;
+            this.status = EntityStatus.ACTIVE;
         }
     }
 }

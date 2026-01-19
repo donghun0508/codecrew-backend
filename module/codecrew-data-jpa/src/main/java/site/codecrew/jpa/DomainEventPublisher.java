@@ -8,15 +8,13 @@ import site.codecrew.core.domain.DomainEvent;
 @Component
 public class DomainEventPublisher {
 
-    private final ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public DomainEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
+    public DomainEventPublisher(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
     }
 
-    public void publishEvent(List<DomainEvent> events) {
-        for (DomainEvent event : events) {
-            applicationEventPublisher.publishEvent(event);
-        }
+    public void publish(AggregateRoot entity) {
+        entity.pullDomainEvents().forEach(eventPublisher::publishEvent);
     }
 }

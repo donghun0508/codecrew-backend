@@ -1,29 +1,32 @@
 package site.codecrew.core.domain;
 
-import java.time.Instant;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@Getter
+@SuperBuilder
+@NoArgsConstructor
 public abstract class DomainEvent {
-    private final UUID eventId;
-    private final Instant occurredAt;
-    private final String aggregateType;
-    private final String aggregateId;
-    private final String version;
 
-    protected DomainEvent(String aggregateType, String aggregateId, String version) {
+    private UUID eventId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private LocalDateTime occurredAt;
+
+    private String aggregateType;
+    private String aggregateId;
+    private String traceId;
+
+    protected DomainEvent(String aggregateType, String aggregateId) {
         this.eventId = UUID.randomUUID();
-        this.occurredAt = Instant.now();
+        this.occurredAt = LocalDateTime.now();
         this.aggregateType = aggregateType;
         this.aggregateId = aggregateId;
-        this.version = version;
-    }
 
-    protected DomainEvent() {
-        this.eventId = UUID.randomUUID();
-        this.occurredAt = Instant.now();
-        this.aggregateType = null;
-        this.aggregateId = null;
-        this.version = null;
+        this.traceId = org.slf4j.MDC.get("traceId");
     }
-
 }

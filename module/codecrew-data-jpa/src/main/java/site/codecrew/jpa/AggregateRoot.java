@@ -24,4 +24,5 @@ public abstract class AggregateRoot extends BaseEntity {
         domainEvents.clear();
         return copied;
     }
+
 }
