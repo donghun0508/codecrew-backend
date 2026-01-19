@@ -18,7 +18,7 @@ public class YoutubeChannelService {
     @Transactional
     public YoutubeChannel save(YoutubeChannel youtubeChannel) {
         YoutubeChannel saved = youtubeChannelRepository.save(youtubeChannel);
-        domainEventPublisher.publishEvent(youtubeChannel.getDomainEvents());
+        domainEventPublisher.publish(saved);
         return saved;
     }
 

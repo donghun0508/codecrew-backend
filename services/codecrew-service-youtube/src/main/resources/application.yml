@@ -26,6 +26,7 @@ spring:
       - monitoring.yml
       - redis.yml
       - jpa.yml
+      - kafka.yml
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}

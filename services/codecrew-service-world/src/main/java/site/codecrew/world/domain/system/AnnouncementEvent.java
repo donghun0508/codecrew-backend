@@ -9,7 +9,7 @@ public class AnnouncementEvent {
         private final String message;
 
         protected AnnouncementUpdatedMessageEvent(Announcement announcement) {
-            super(announcement.getClass().getTypeName(), "", "1.0");
+            super(announcement.getClass().getTypeName(), null);
             this.message = announcement.getMessage();
         }
     }

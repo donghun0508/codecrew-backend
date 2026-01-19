@@ -14,7 +14,7 @@ public class YoutubeChannelEvent {
         private final String uploadPlayListId;
 
         protected YoutubeChannelCreatedEvent(YoutubeChannel youtubeChannel) {
-            super(YoutubeChannel.class.getTypeName(), youtubeChannel.getChannelId(), "1");
+            super(YoutubeChannel.class.getTypeName(), youtubeChannel.getChannelId());
             this.channelId = youtubeChannel.getChannelId();
             this.uploadPlayListId = youtubeChannel.getUploadPlaylistId();
         }
