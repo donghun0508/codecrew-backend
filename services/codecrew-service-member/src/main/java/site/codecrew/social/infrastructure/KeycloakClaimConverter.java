@@ -14,7 +14,7 @@ class KeycloakClaimConverter implements OidcClaimConverter {
             KeycloakClaimConstants.SUB, socialProfile.id(),
             KeycloakClaimConstants.PREFERRED_USERNAME, (socialProfile.email() != null ? socialProfile.email() : socialProfile.id()),
             KeycloakClaimConstants.EMAIL, socialProfile.email(),
-            KeycloakClaimConstants.NAME, socialProfile.name()
+            KeycloakClaimConstants.NAME, (socialProfile.name() != null ? socialProfile.name() : socialProfile.id())
         );
     }
 
