@@ -20,11 +20,14 @@ public enum PacketType {
     C_NET_MISSION_DELETE_REQ,       // (C->S) 미션 삭제 요청
     C_NET_MISSION_DELETE_ALL_REQ,   // (C->S) 미션 전체 삭제 요청
     C_NET_MISSION_STATUS_CHANGE_REQ,        // (C->S) 미션 시작 요청
-
     C_NET_MISSION_REGISTERED_NOTIFY, // (S->C) 미션 등록 알림 (broadcast)
     C_NET_MISSION_DELETED_ALL_NOTIFY,
     C_NET_MISSION_DELETED_NOTIFY,   // (S->C) 미션 삭제 알림 (broadcast)
     C_NET_MISSION_STATUS_CHANGED_NOTIFY,  // (S->C) 미션 시작 알림 (broadcast)
+
+    C_NET_NUDGE_REQ,    // (C->S) 알림 요청
+    C_NET_NUDGE_NOTIFY, // (S->C)
+
 
     // [5] 시스템 (System)
     C_NET_SYSTEM_ALERT_NOTIFY,      // (S->C) 시스템 알림(경고/에러 포함)
