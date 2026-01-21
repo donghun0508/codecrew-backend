@@ -6,7 +6,6 @@ import reactor.core.publisher.Mono;
 import site.codecrew.world.domain.connection.Connection;
 import site.codecrew.world.domain.connection.ConnectionService;
 import site.codecrew.world.domain.connection.WorldNodeId;
-import site.codecrew.world.domain.packet.transmission.Broadcast;
 import site.codecrew.world.domain.packet.transmission.Multicast;
 import site.codecrew.world.domain.packet.transmission.TransmissionOption;
 import site.codecrew.world.domain.packet.transmission.Unicast;
@@ -22,16 +21,29 @@ public class PacketDispatcher {
     public Mono<Void> dispatch(Connection connection, Packet<? extends Payload> packet) {
         Payload payload = packet.payload();
 
-        if (payload instanceof Unicast) {
-            return sendToOne(connection, packet);
+        if (payload instanceof Unicast unicast) {
+            return sendToMyself(connection, packet);
         } else if (payload instanceof Multicast) {
             return sendToMany(connection, packet);
         }
         return Mono.empty();
     }
 
-    private Mono<Void> sendToOne(Connection connection, Packet<?> packet) {
+    public Mono<Void> unicast(String targetPlayerId, Packet<? extends Payload> packet) {
+        return sendToTarget(targetPlayerId, packet);
+    }
+
+    private Mono<Void> sendToMyself(Connection connection, Packet<?> packet) {
         return Mono.fromCallable(() -> objectMapper.writeValueAsString(packet)).flatMap(connection::send);
+    }
+
+    private Mono<Void> sendToTarget(String playerId, Packet<? extends Payload> packet) {
+        return connectionService.findByPlayerId(playerId)
+            .flatMap(connection ->
+                Mono.fromCallable(() -> objectMapper.writeValueAsString(packet))
+                    .flatMap(connection::send)
+            )
+            .switchIfEmpty(Mono.empty());
     }
 
     private Mono<Void> sendToMany(Connection sender, Packet<?> packet) {
