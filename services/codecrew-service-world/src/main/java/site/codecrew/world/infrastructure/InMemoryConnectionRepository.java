@@ -13,13 +13,15 @@ import site.codecrew.world.domain.connection.NodeId;
 @Repository
 class InMemoryConnectionRepository implements ConnectionRepository {
 
-    private final Map<String, Connection> store = new ConcurrentHashMap<>();
+    private final Map<String, Connection> connectionIndex = new ConcurrentHashMap<>();
+    private final Map<String, Connection> playerIndex = new ConcurrentHashMap<>();
     private final Map<NodeId, Set<Connection>> channels = new ConcurrentHashMap<>();
 
     @Override
     public Mono<Connection> save(Connection connection) {
         return Mono.fromRunnable(() -> {
-            store.put(connection.getId(), connection);
+            connectionIndex.put(connection.getId(), connection);
+            playerIndex.put(connection.getIdentityHash(), connection);
 
             channels.computeIfAbsent(connection.getNodeId(), k -> ConcurrentHashMap.newKeySet())
                 .add(connection);
@@ -28,13 +30,13 @@ class InMemoryConnectionRepository implements ConnectionRepository {
 
     @Override
     public Mono<Connection> findById(String id) {
-        return Mono.justOrEmpty(store.get(id));
+        return Mono.justOrEmpty(connectionIndex.get(id));
     }
 
     @Override
     public Mono<Boolean> saveIfAbsent(Connection connection) {
         return Mono.fromCallable(() -> {
-            Connection existing = store.putIfAbsent(connection.getId(), connection);
+            Connection existing = connectionIndex.putIfAbsent(connection.getId(), connection);
 
             if (existing == null) {
                 channels.computeIfAbsent(connection.getNodeId(), k -> ConcurrentHashMap.newKeySet())
@@ -47,15 +49,16 @@ class InMemoryConnectionRepository implements ConnectionRepository {
 
     @Override
     public Mono<Boolean> existsById(String id) {
-        return Mono.just(store.containsKey(id));
+        return Mono.just(connectionIndex.containsKey(id));
     }
 
     @Override
     public Mono<Void> deleteById(String id) {
         return Mono.fromRunnable(() -> {
-            Connection connection = store.remove(id);
+            Connection connection = connectionIndex.remove(id);
 
             if (connection != null) {
+                playerIndex.remove(connection.getIdentityHash());
                 removeFromChannel(connection.getNodeId(), connection);
             }
         });
@@ -64,7 +67,7 @@ class InMemoryConnectionRepository implements ConnectionRepository {
     @Override
     public Mono<Void> move(String id, NodeId targetNodeId) {
         return Mono.fromRunnable(() -> {
-            Connection connection = store.get(id);
+            Connection connection = connectionIndex.get(id);
             if (connection != null) {
                 removeFromChannel(connection.getNodeId(), connection);
 
@@ -75,6 +78,10 @@ class InMemoryConnectionRepository implements ConnectionRepository {
         });
     }
 
+    @Override
+    public Mono<Connection> findByPlayerId(String playerId) {
+        return Mono.justOrEmpty(playerIndex.get(playerId));
+    }
 
     @Override
     public Flux<Connection> findAllByNode(NodeId nodeId) {

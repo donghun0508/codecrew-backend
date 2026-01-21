@@ -7,6 +7,6 @@ import site.codecrew.world.domain.LocalRepository;
 public interface ConnectionRepository extends LocalRepository<Connection, String>{
 
     Mono<Void> move(String connectionId, NodeId targetNodeId);
-
+    Mono<Connection> findByPlayerId(String playerId);
     Flux<Connection> findAllByNode(NodeId nodeId);
 }

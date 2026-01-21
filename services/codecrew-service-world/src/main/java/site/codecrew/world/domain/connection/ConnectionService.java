@@ -37,4 +37,8 @@ public class ConnectionService {
     public Flux<Connection> findAllByNodeId(NodeId nodeId) {
         return connectionRepository.findAllByNode(nodeId);
     }
+
+    public Mono<Connection> findByPlayerId(String playerId) {
+        return connectionRepository.findByPlayerId(playerId);
+    }
 }
